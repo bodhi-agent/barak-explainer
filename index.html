@@ -3,520 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How Barak Works ⚡ — Clarity</title>
 <link rel="icon" href="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846e29_favicon-32x32.png">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Barak ⚡ — Clarity AI Agent</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
   :root {
-    --bg: #00031F;
-    --card: #011325;
-    --card-hover: #021a33;
-    --border: #0a2a4a;
-    --accent: #61F393;
-    --accent-dim: rgba(97,243,147,0.15);
-    --accent-border: rgba(97,243,147,0.25);
-    --navy: #001C38;
-    --navy-deep: #111F4C;
-    --text: #F3F8FD;
-    --muted: #b0bec5;
-    --dim: #475467;
-    --white: #ffffff;
+    --bg: #00031F; --card: #011325; --card-hover: #021a33; --border: #0a2a4a;
+    --accent: #61F393; --accent-dim: rgba(97,243,147,0.15); --accent-border: rgba(97,243,147,0.25);
+    --navy: #001C38; --navy-deep: #111F4C; --text: #F3F8FD; --muted: #b0bec5; --dim: #475467; --white: #fff;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
-  .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; max-width: 1000px; margin: 0 auto; }
-  .nav img { height: 28px; }
-  .nav-tag { font-size: 0.75rem; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border); padding: 4px 12px; border-radius: 20px; font-weight: 600; }
-  .hero { text-align: center; padding: 60px 24px 50px; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: -40%; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(97,243,147,0.08) 0%, transparent 70%); animation: glow 10s ease-in-out infinite; }
-  .hero::after { content: ''; position: absolute; top: -20%; right: 20%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(12,107,216,0.06) 0%, transparent 70%); animation: glow 8s ease-in-out infinite reverse; }
-  @keyframes glow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } }
-  .hero h1 { font-size: 2.8rem; font-weight: 800; position: relative; margin-bottom: 12px; letter-spacing: -0.02em; }
-  .hero h1 span { color: var(--accent); }
-  .hero .subtitle { font-size: 1.1rem; color: var(--muted); position: relative; max-width: 520px; margin: 0 auto; font-weight: 400; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Nav */
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1000px; margin: 0 auto; position: relative; }
+  .nav-logo { height: 26px; }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-link { font-size: 0.82rem; font-weight: 600; color: var(--muted); padding: 6px 14px; border-radius: 8px; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); text-decoration: none; }
+  .nav-link.active { color: var(--accent); background: var(--accent-dim); }
+  .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 24px; cursor: pointer; padding: 4px 8px; }
+  .mobile-menu { display: none; position: absolute; top: 100%; right: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 8px; z-index: 100; min-width: 180px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+  .mobile-menu.show { display: flex; flex-direction: column; }
+  .mobile-menu .nav-link { padding: 10px 16px; border-radius: 8px; }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+  }
+
+  /* Common */
   .container { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
   .section { margin-bottom: 64px; }
   .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
   .section-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; background: var(--accent-dim); }
   .section h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
-  .arch-diagram { background: linear-gradient(135deg, var(--card) 0%, var(--navy) 100%); border: 1px solid var(--border); border-radius: 16px; padding: 40px 24px; margin-bottom: 32px; }
-  .arch-center { text-align: center; margin-bottom: 32px; }
-  .arch-brain { display: inline-flex; align-items: center; justify-content: center; width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #3dd97a); font-size: 42px; box-shadow: 0 0 50px rgba(97,243,147,0.25); margin-bottom: 8px; }
-  .arch-label { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
-  .arch-sublabel { font-size: 0.8rem; color: var(--muted); }
-  .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-  .arch-node { background: rgba(0,3,31,0.6); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
-  .arch-node:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .arch-node .node-icon { font-size: 26px; margin-bottom: 8px; }
-  .arch-node .node-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
-  .arch-node .node-desc { font-size: 0.72rem; color: var(--muted); }
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.3s, transform 0.3s; }
   .card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
   .card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
-  .memory-flow { display: flex; align-items: stretch; gap: 0; margin-top: 16px; flex-wrap: wrap; }
-  .memory-step { flex: 1; min-width: 170px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
-  .memory-step .step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--bg); font-weight: 800; font-size: 0.85rem; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 10px; }
-  .memory-step h4 { font-size: 0.9rem; margin-bottom: 6px; }
-  .memory-step p { font-size: 0.78rem; color: var(--muted); }
-  .arrow-sep { display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--accent); padding: 0 6px; min-width: 36px; }
-  @media (max-width: 640px) { .memory-flow { flex-direction: column; align-items: center; } .arrow-sep { transform: rotate(90deg); padding: 8px 0; } }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
   .code-block { background: rgba(0,3,31,0.8); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.82rem; color: #c9d1d9; overflow-x: auto; margin: 12px 0; line-height: 1.6; }
   .code-block .comment { color: #6b7a8d; }
   .code-block .file { color: var(--accent); }
-  .tip-list { list-style: none; display: grid; gap: 10px; }
-  .tip-list li { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start; font-size: 0.9rem; }
-  .tip-list .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
-  .tip-list .tip-do { border-left: 3px solid var(--accent); }
-  .tip-list .tip-dont { border-left: 3px solid #dc3545; }
-  .tip-list strong { color: var(--text); }
-  .divider { height: 1px; background: var(--border); margin: 48px 0; }
-  .timeline { position: relative; padding-left: 40px; }
-  .timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: var(--border); }
-  .timeline-step { position: relative; margin-bottom: 28px; padding-bottom: 4px; }
-  .timeline-step:last-child { margin-bottom: 0; }
-  .timeline-dot { position: absolute; left: -33px; top: 4px; width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--accent); background: var(--bg); z-index: 1; }
-  .timeline-step.active .timeline-dot { background: var(--accent); box-shadow: 0 0 12px rgba(97,243,147,0.4); }
-  .timeline-time { font-size: 0.72rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
-  .timeline-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
-  .timeline-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
-  .timeline-tool { display: inline-block; background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 6px; padding: 2px 8px; font-size: 0.72rem; font-family: 'JetBrains Mono', 'Fira Code', monospace; color: var(--accent); margin-top: 8px; margin-right: 4px; }
-  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 28px; }
-  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
-  .stat-box .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--accent); margin-bottom: 2px; }
-  .stat-box .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
   .footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); }
   .footer-logo { height: 24px; margin-bottom: 12px; opacity: 0.7; }
   .footer-text { color: var(--dim); font-size: 0.8rem; }
   .footer-text span { color: var(--accent); }
 
-  .project-card { background: linear-gradient(135deg, var(--card) 0%, var(--navy) 100%); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 16px; transition: border-color 0.3s; }
-  .project-card:hover { border-color: var(--accent); }
-  .project-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-  .project-title { font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-  .project-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-  .status-active { background: rgba(97,243,147,0.15); color: #61F393; border: 1px solid rgba(97,243,147,0.25); }
-  .status-planned { background: rgba(12,107,216,0.15); color: #5BA8F5; border: 1px solid rgba(12,107,216,0.25); }
-  .project-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 18px; line-height: 1.5; }
-  .project-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-  .project-link { display: flex; align-items: center; gap: 10px; background: rgba(0,3,31,0.6); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; text-decoration: none; color: var(--text); transition: border-color 0.3s, transform 0.3s; font-size: 0.85rem; }
-  .project-link:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .project-link .link-icon { font-size: 20px; flex-shrink: 0; }
-  .project-link .link-label { font-weight: 600; }
-  .project-link .link-desc { font-size: 0.75rem; color: var(--muted); }
-  .project-meta { display: flex; gap: 20px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
-  .project-meta-item { font-size: 0.78rem; color: var(--muted); }
-  .project-meta-item strong { color: var(--text); }
-  .dashboard-intro { color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
-  .dashboard-intro strong { color: var(--text); }
-
-  .task-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 12px; transition: border-color 0.3s; }
-  .task-item:hover { border-color: var(--accent); }
-  .task-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
-  .task-title { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-  .task-status { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 16px; white-space: nowrap; }
-  .task-status-waiting { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
-  .task-status-planned { background: rgba(12,107,216,0.15); color: #5BA8F5; border: 1px solid rgba(12,107,216,0.25); }
-  .task-status-discussion { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
-  .task-status-done { background: rgba(97,243,147,0.15); color: #61F393; border: 1px solid rgba(97,243,147,0.25); }
-  .task-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
-  .task-needs { font-size: 0.8rem; color: #f59e0b; background: rgba(245,158,11,0.08); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 6px; }
-  .task-date { font-size: 0.72rem; color: var(--dim); margin-top: 8px; }
-  .completed-list { margin-top: 20px; }
-  .completed-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 0.85rem; color: var(--muted); border-bottom: 1px solid rgba(30,30,46,0.5); }
-  .completed-item:last-child { border-bottom: none; }
-  .completed-check { color: #61F393; font-size: 16px; flex-shrink: 0; }
-
-  .identity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px; }
-  .identity-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.3s, transform 0.3s; }
-  .identity-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .identity-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .identity-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--accent-dim); flex-shrink: 0; }
-  .identity-card-name { font-size: 0.95rem; font-weight: 700; }
-  .identity-card-name a { color: var(--accent); text-decoration: none; }
-  .identity-card-name a:hover { text-decoration: underline; }
-  .identity-card-role { font-size: 0.75rem; color: var(--muted); }
-  .identity-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
-  .identity-card .field-list { list-style: none; padding: 0; margin-top: 10px; }
-  .identity-card .field-list li { font-size: 0.82rem; color: var(--muted); padding: 4px 0; border-bottom: 1px solid rgba(30,30,46,0.4); display: flex; gap: 8px; }
-  .identity-card .field-list li:last-child { border-bottom: none; }
-  .identity-card .field-label { color: var(--text); font-weight: 600; white-space: nowrap; }
-  .drift-visual { background: linear-gradient(135deg, var(--card) 0%, rgba(17,31,76,0.5) 100%); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-top: 20px; }
-  .drift-bar-container { margin: 16px 0; }
-  .drift-bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 6px; }
-  .drift-bar { height: 8px; border-radius: 4px; background: var(--border); overflow: hidden; }
-  .drift-bar-fill { height: 100%; border-radius: 4px; }
-  .drift-fill-strong { background: linear-gradient(90deg, #61F393, #3dd97a); width: 95%; }
-  .drift-fill-medium { background: linear-gradient(90deg, #f59e0b, #d97706); width: 60%; }
-  .drift-fill-weak { background: linear-gradient(90deg, #dc3545, #b91c1c); width: 25%; }
+  .hero { text-align: center; padding: 80px 24px 60px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -40%; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(97,243,147,0.08) 0%, transparent 70%); animation: glow 10s ease-in-out infinite; }
+  .hero::after { content: ''; position: absolute; top: -20%; right: 20%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(12,107,216,0.06) 0%, transparent 70%); animation: glow 8s ease-in-out infinite reverse; }
+  @keyframes glow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } }
+  .hero h1 { font-size: 3rem; font-weight: 800; position: relative; margin-bottom: 16px; letter-spacing: -0.03em; }
+  .hero h1 span { color: var(--accent); }
+  .hero .subtitle { font-size: 1.15rem; color: var(--muted); position: relative; max-width: 560px; margin: 0 auto 40px; font-weight: 400; line-height: 1.7; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 24px; padding: 8px 20px; font-size: 0.82rem; font-weight: 600; color: var(--accent); position: relative; margin-bottom: 24px; }
+  .hero-badge .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
+  .nav-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  .nav-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-align: left; text-decoration: none; color: var(--text); transition: border-color 0.3s, transform 0.3s; display: block; }
+  .nav-card:hover { border-color: var(--accent); transform: translateY(-4px); text-decoration: none; }
+  .nav-card-icon { font-size: 32px; margin-bottom: 14px; }
+  .nav-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+  .nav-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .nav-card .arrow { color: var(--accent); font-size: 0.85rem; margin-top: 14px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+  .quick-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; max-width: 900px; margin: 48px auto; padding: 0 24px; }
+  .quick-stat { text-align: center; padding: 20px 12px; }
+  .quick-stat .stat-val { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+  .quick-stat .stat-lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+  .intro-section { max-width: 700px; margin: 0 auto 60px; padding: 0 24px; text-align: center; }
+  .intro-section p { color: var(--muted); font-size: 1rem; line-height: 1.8; }
+  .intro-section strong { color: var(--text); }
 </style>
 </head>
 <body>
 <div class="nav">
-  <img src="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846e27_Clarity%20Logo%20white.svg" alt="Clarity">
-  <span class="nav-tag">⚡ Powered by Barak</span>
+  <a href="index.html"><img class="nav-logo" src="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846e27_Clarity%20Logo%20white.svg" alt="Clarity"></a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="architecture.html" class="nav-link">Architecture</a>
+    <a href="projects.html" class="nav-link">Projects & Tasks</a>
+    <a href="case-study.html" class="nav-link">Case Study</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="architecture.html" class="nav-link">Architecture</a>
+    <a href="projects.html" class="nav-link">Projects & Tasks</a>
+    <a href="case-study.html" class="nav-link">Case Study</a>
+  </div>
 </div>
+
 <div class="hero">
+  <div class="hero-badge"><span class="pulse"></span> Online & Operational</div>
   <h1>Meet <span>Barak ⚡</span></h1>
-  <p class="subtitle">A persistent AI agent with a workspace, tools, and memory — built to work alongside the Clarity team.</p>
+  <p class="subtitle">A persistent AI agent with a workspace, tools, and memory — built to work alongside the Clarity team every day.</p>
 </div>
-<div class="container">
-  <div class="section">
-    <div class="section-header"><div class="section-icon">🏗️</div><h2>Architecture</h2></div>
-    <div class="arch-diagram">
-      <div class="arch-center">
-        <div class="arch-brain">⚡</div>
-        <div class="arch-label">Barak</div>
-        <div class="arch-sublabel">AI Agent on OpenClaw</div>
-      </div>
-      <div class="arch-grid">
-        <div class="arch-node"><div class="node-icon">💾</div><div class="node-title">Persistent Workspace</div><div class="node-desc">Files, memory, configs that survive across sessions</div></div>
-        <div class="arch-node"><div class="node-icon">🖥️</div><div class="node-title">Linux Shell</div><div class="node-desc">Full terminal — git, python, node, curl, anything</div></div>
-        <div class="arch-node"><div class="node-icon">🌐</div><div class="node-title">Web Browser</div><div class="node-desc">Headless Chromium for browsing, screenshots, scraping</div></div>
-        <div class="arch-node"><div class="node-icon">🔍</div><div class="node-title">Web Search</div><div class="node-desc">Live internet search and page reading</div></div>
-        <div class="arch-node"><div class="node-icon">⏰</div><div class="node-title">Cron Scheduler</div><div class="node-desc">Automated tasks on schedule</div></div>
-        <div class="arch-node"><div class="node-icon">💬</div><div class="node-title">Telegram</div><div class="node-desc">Sends & receives messages in team chats</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="section">
-    <div class="section-header"><div class="section-icon">🧠</div><h2>How Memory Works</h2></div>
-    <p style="color: var(--muted); margin-bottom: 20px;">Two layers of memory. Understanding this is key to knowing when Barak remembers things and when he doesn't.</p>
-    <div class="memory-flow">
-      <div class="memory-step"><div class="step-num">1</div><h4>Chat Context</h4><p>Current conversation. Has a token window — old messages get compressed into summaries. Details can get lost.</p></div>
-      <div class="arrow-sep">→</div>
-      <div class="memory-step"><div class="step-num">2</div><h4>Memory Files</h4><p>Markdown files on disk. Permanent. Preferences, specs, and facts live here to persist reliably.</p></div>
-      <div class="arrow-sep">→</div>
-      <div class="memory-step"><div class="step-num">3</div><h4>Recalled on Demand</h4><p>Before answering, Barak searches memory files. If something isn't written down, it might not be found.</p></div>
-    </div>
-    <div class="code-block" style="margin-top: 20px;">
-      <span class="comment"># Memory files on disk (click to view):</span><br>
-      <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/USER.md" target="_blank" style="color: #61F393; text-decoration: none;"><span class="file">USER.md</span></a>          <span class="comment">← who I work with, timezones, prefs</span><br>
-      <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/menachem-briefing.md" target="_blank" style="color: #61F393; text-decoration: none;"><span class="file">memory/menachem-briefing.md</span></a>  <span class="comment">← briefing spec & rules</span><br>
-      <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/menachem-preferences.md" target="_blank" style="color: #61F393; text-decoration: none;"><span class="file">memory/menachem-preferences.md</span></a> <span class="comment">← working style</span><br>
-      <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/HEARTBEAT.md" target="_blank" style="color: #61F393; text-decoration: none;"><span class="file">HEARTBEAT.md</span></a>     <span class="comment">← scheduled task definitions</span><br>
-      <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/SOUL.md" target="_blank" style="color: #61F393; text-decoration: none;"><span class="file">SOUL.md</span></a>           <span class="comment">← personality & behavior rules</span><br>
-    </div>
-    <div class="card" style="margin-top: 14px; border-left: 3px solid var(--accent);"><h3>⚠️ The Key Insight</h3><p>If you tell Barak something important and it doesn't get written to a file — future sessions may not know it. That's why "write it down" matters.</p></div>
-  </div>
 
-  <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, var(--card) 0%, rgba(17,31,76,0.5) 100%); border: 1px solid rgba(97,243,147,0.15);">
-    <h3 style="font-size: 1.1rem; margin-bottom: 16px;">🔮 Why File-Based Memory Is Secretly Genius</h3>
-    <p style="margin-bottom: 14px;">Most AI assistants have one type of memory: <strong>the conversation window</strong>. Once a conversation gets long enough, the oldest messages fall off the edge. Details are gone forever. It's like having a brilliant colleague with amnesia.</p>
-    <p style="margin-bottom: 14px;">Barak's memory works differently. The file system <em>is</em> the memory — and it has no upper limit. Every fact, preference, spec, and lesson learned gets written to markdown files on disk. Those files don't expire, don't get compressed, and don't fall off any edge. A year from now, <code style="color: #61F393;">USER.md</code> will still say Menachem is in LA on Pacific Time.</p>
-    <p style="margin-bottom: 14px;"><strong>The insight:</strong> this turns memory into a search problem, not a capacity problem. Before answering a question, Barak searches his files semantically — the same way you'd search your notes. And search is essentially a solved problem that keeps getting more efficient. As the OpenClaw platform develops, the tools for searching, indexing, and recalling from this file system are getting sharper every week. The vision is that the file system becomes virtually indistinguishable from a limitless context window.</p>
-    <p style="margin-bottom: 0; color: #61F393; font-weight: 600;">In theory, this means infinite memory with perfect recall. In practice, we're not there yet.</p>
-  </div>
-
-  <div class="card" style="margin-top: 14px; border-left: 3px solid #dc3545;">
-    <h3 style="margin-bottom: 14px;">⚠️ Where It Breaks Down Today — Honestly</h3>
-    <div style="display: grid; gap: 12px;">
-      <div>
-        <strong style="color: #dc3545;">The write problem.</strong>
-        <p style="margin-top: 4px;">Memory is only as good as what gets written down. If you tell Barak your timezone in passing and he doesn't save it to a file, future sessions won't know. Today, this requires discipline — Barak should always write important facts immediately, but sometimes he doesn't. Saying <em>"save that"</em> helps force it.</p>
-      </div>
-      <div>
-        <strong style="color: #dc3545;">The staleness problem.</strong>
-        <p style="margin-top: 4px;">Files can become outdated. If a preference changes but the old file isn't updated, Barak will confidently act on stale information. There's no automatic "expiry" on a markdown file — it looks just as valid whether it was written yesterday or six months ago.</p>
-      </div>
-      <div>
-        <strong style="color: #dc3545;">The search-not-read problem.</strong>
-        <p style="margin-top: 4px;">Barak searches memory files before responding, but search depends on asking the right question. If a fact is stored under a filename or heading that doesn't match what he's looking for, he might miss it entirely. It's like having a filing cabinet but forgetting which drawer something's in.</p>
-      </div>
-      <div>
-        <strong style="color: #dc3545;">The verify-before-asserting problem.</strong>
-        <p style="margin-top: 4px;">The biggest failure mode isn't missing information — it's Barak <em>thinking</em> he remembers something when he's actually confabulating from compressed conversation summaries. The fix is cultural: always check the file before asserting the fact. We're working on making this more automatic.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top: 14px; border-left: 3px solid #0C6BD8;">
-    <h3>🔧 What's Improving</h3>
-    <p style="margin-bottom: 10px;">OpenClaw is under active development. The memory architecture is getting better fast:</p>
-    <ul style="color: var(--muted); padding-left: 20px; display: grid; gap: 6px;">
-      <li><strong style="color: var(--text);">Better automatic writes</strong> — detecting when important facts are mentioned and persisting them without being told</li>
-      <li><strong style="color: var(--text);">Smarter search</strong> — semantic recall that works more like "what do I know about Menachem's schedule?" and less like keyword matching</li>
-      <li><strong style="color: var(--text);">Lossless context compression</strong> — conversation summaries that preserve critical details instead of losing them</li>
-      <li><strong style="color: var(--text);">File system as context</strong> — the goal is to treat the entire workspace as an extension of the context window, retrievable on demand</li>
-    </ul>
-    <p style="margin-top: 12px; color: var(--accent); font-weight: 500;">The architecture is right. The execution is catching up.</p>
-  </div>
-
-  
-  <div class="section">
-    <div class="section-header"><div class="section-icon">🪪</div><h2>Identity Files — Who Barak Is</h2></div>
-    <p class="dashboard-intro">Four files define Barak's identity. They're loaded into his system prompt at the start of every session — before he reads a single message. Think of them as his <strong>DNA</strong>: they shape how he thinks, talks, and acts. And you can change them just by telling him how you want him to behave.</p>
-
-    <div class="identity-grid">
-      <div class="identity-card">
-        <div class="identity-card-header">
-          <div class="identity-card-icon">⚡</div>
-          <div>
-            <div class="identity-card-name"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/identity/SOUL.md" target="_blank">SOUL.md</a></div>
-            <div class="identity-card-role">Personality & behavior rules</div>
-          </div>
-        </div>
-        <p>The deepest layer. Defines Barak's personality, communication style, and what he refuses to do. This is where "sharp and direct, no filler, no sugarcoating" comes from.</p>
-        <ul class="field-list">
-          <li><span class="field-label">Controls:</span> Tone, personality, values, boundaries</li>
-          <li><span class="field-label">Example:</span> "Don't be sycophantic, don't speculate without flagging it"</li>
-        </ul>
-      </div>
-
-      <div class="identity-card">
-        <div class="identity-card-header">
-          <div class="identity-card-icon">🪪</div>
-          <div>
-            <div class="identity-card-name"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/identity/IDENTITY.md" target="_blank">IDENTITY.md</a></div>
-            <div class="identity-card-role">Name, model, basic facts</div>
-          </div>
-        </div>
-        <p>The basics: his name is Barak, his emoji is ⚡, he runs on Claude Opus. Simple facts that stay constant. Think of it as a birth certificate.</p>
-        <ul class="field-list">
-          <li><span class="field-label">Controls:</span> Name, username, model, creation date</li>
-          <li><span class="field-label">Rarely changes:</span> Only if fundamentals shift</li>
-        </ul>
-      </div>
-
-      <div class="identity-card">
-        <div class="identity-card-header">
-          <div class="identity-card-icon">👥</div>
-          <div>
-            <div class="identity-card-name"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/identity/USER.md" target="_blank">USER.md</a></div>
-            <div class="identity-card-role">Who Barak works for</div>
-          </div>
-        </div>
-        <p>Everything Barak knows about the people he serves — names, roles, timezones, preferences. This is where "Menachem is in LA, prefers signal over volume" lives.</p>
-        <ul class="field-list">
-          <li><span class="field-label">Controls:</span> Who you are, your timezone, your working style</li>
-          <li><span class="field-label">Updated by:</span> Telling Barak about yourself</li>
-        </ul>
-      </div>
-
-      <div class="identity-card">
-        <div class="identity-card-header">
-          <div class="identity-card-icon">⚙️</div>
-          <div>
-            <div class="identity-card-name"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/identity/AGENTS.md" target="_blank">AGENTS.md</a></div>
-            <div class="identity-card-role">Operational configuration</div>
-          </div>
-        </div>
-        <p>The rulebook: what repos Barak has access to, git workflow rules, startup procedures, what he's responsible for. The operational guardrails.</p>
-        <ul class="field-list">
-          <li><span class="field-label">Controls:</span> Permissions, workflows, responsibilities</li>
-          <li><span class="field-label">Set by:</span> Michael (admin-level config)</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card" style="border-left: 3px solid var(--accent); margin-bottom: 20px;">
-      <h3>💬 How to Edit These: Just Talk</h3>
-      <p style="margin-bottom: 12px;">You don't need to learn a config language or edit files directly. Just tell Barak what you want:</p>
-      <div class="code-block">
-        <span class="comment"># These are all valid ways to shape Barak's identity:</span><br><br>
-        "Be more concise in your briefings. I want bullet points only."<br>
-        "When I ask about competitors, always check LinkedIn first."<br>
-        "Don't use emojis in serious reports."<br>
-        "I prefer you flag uncertainties explicitly rather than hedging."<br>
-        "My timezone changed — I'm in NYC now, Eastern Time."<br><br>
-        <span class="comment"># The richer the instruction, the better. You can describe:</span><br>
-        <span class="comment"># → Communication style (formal? casual? terse?)</span><br>
-        <span class="comment"># → Decision-making approach (ask first? act then report?)</span><br>
-        <span class="comment"># → Topic expertise to emphasize or avoid</span><br>
-        <span class="comment"># → How to handle ambiguity (guess? ask? flag?)</span><br>
-        <span class="comment"># → Specific phrases to use or avoid</span><br><br>
-        <span class="file">→ Barak updates the relevant file, and it takes effect next session.</span>
-      </div>
-    </div>
-
-    <div class="drift-visual">
-      <h3 style="margin-bottom: 8px;">⚠️ The Drift Problem — Why This Isn't Magic</h3>
-      <p style="color: var(--muted); margin-bottom: 16px;">Identity files are loaded at session start. But as a conversation gets longer, the <strong>context window fills up</strong> with new messages — and the identity instructions get proportionally smaller. Barak can gradually "drift" from his configured personality, especially in long sessions.</p>
-      <div class="drift-bar-container">
-        <div class="drift-bar-label"><span>Session start</span><span>Identity adherence: ~95%</span></div>
-        <div class="drift-bar"><div class="drift-bar-fill drift-fill-strong"></div></div>
-      </div>
-      <div class="drift-bar-container">
-        <div class="drift-bar-label"><span>Mid-session (~50k tokens)</span><span>Identity adherence: ~60%</span></div>
-        <div class="drift-bar"><div class="drift-bar-fill drift-fill-medium"></div></div>
-      </div>
-      <div class="drift-bar-container">
-        <div class="drift-bar-label"><span>Long session (~150k tokens)</span><span>Identity adherence: ~25%</span></div>
-        <div class="drift-bar"><div class="drift-bar-fill drift-fill-weak"></div></div>
-      </div>
-      <p style="color: var(--muted); margin-top: 16px; font-size: 0.85rem;">This is why Barak sometimes becomes more generic or "assistant-like" in long conversations — the SOUL.md personality instructions are getting drowned out by the volume of recent messages. <strong>Compaction helps</strong> (compressing old messages to free space), and <strong>fresh sessions help</strong> (identity files are front-and-center again). But it's an inherent tradeoff of the architecture today.</p>
-      <p style="color: var(--accent); margin-top: 12px; font-weight: 500; font-size: 0.85rem;">If Barak starts feeling "off" — less sharp, more generic — it's probably drift. A fresh session resets it. Or just tell him: "You're drifting, re-read your SOUL."</p>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-  <div class="section">
-    <div class="section-header"><div class="section-icon">🛠️</div><h2>What Barak Can Actually Do</h2></div>
-    <p style="color: var(--muted); margin-bottom: 20px;">Full Linux environment means Barak isn't limited to chat responses. If a human could do it at a computer, Barak can probably configure himself to do it.</p>
-    <div class="card-grid">
-      <div class="card"><h3>📰 Daily Briefings</h3><p>Search the web on a schedule, filter by source quality, format, and deliver to Telegram automatically.</p></div>
-      <div class="card"><h3>💻 Write & Run Code</h3><p>Python, Node, bash scripts. Build tools, process data, automate workflows.</p></div>
-      <div class="card"><h3>🔀 Git & GitHub</h3><p>Clone repos, create branches, make commits, open PRs, review code.</p></div>
-      <div class="card"><h3>🌍 Web Research</h3><p>Search, fetch pages, read articles, extract data. Deep or broad.</p></div>
-      <div class="card"><h3>📊 Data Processing</h3><p>Analyze CSVs, build reports, track metrics, generate charts.</p></div>
-      <div class="card"><h3>🔗 API Integrations</h3><p>Connect to Slack, Google services, GitHub, or any API with an endpoint.</p></div>
-    </div>
-  </div>
-  <div class="divider"></div>
-  <div class="section">
-    <div class="section-header"><div class="section-icon">🤝</div><h2>How to Get the Best Out of Barak</h2></div>
-    <ul class="tip-list">
-      <li class="tip-do"><span class="tip-icon">✅</span><div><strong>Be explicit about details and say "write it down."</strong><br>"My timezone is PT, I'm in LA. Save that." — locks it into persistent memory.</div></li>
-      <li class="tip-do"><span class="tip-icon">✅</span><div><strong>Call out mistakes directly.</strong><br>Barak can check logs, configs, and state — but only if he knows something's off.</div></li>
-      <li class="tip-do"><span class="tip-icon">✅</span><div><strong>Think of requests as specs, not wishes.</strong><br>"Send me news at 6:30 AM PT, max 5 bullets, real journalism only" — that's a spec he can implement.</div></li>
-      <li class="tip-do"><span class="tip-icon">✅</span><div><strong>Ask him to build things.</strong><br>Not just Q&A — recurring workflows, monitoring scripts, data pipelines. Describe the outcome.</div></li>
-      <li class="tip-dont"><span class="tip-icon">❌</span><div><strong>Don't assume he remembered something from weeks ago.</strong><br>If it wasn't written to a memory file, it may have faded. When in doubt, restate it.</div></li>
-      <li class="tip-dont"><span class="tip-icon">❌</span><div><strong>Don't let him get away with vague answers.</strong><br>If Barak says "it should be working" without showing proof — push back.</div></li>
-    </ul>
-  </div>
-  <div class="divider"></div>
-
-  <div class="section">
-    <div class="section-header"><div class="section-icon">📋</div><h2>Active Projects</h2></div>
-    <p class="dashboard-intro">This is a live view of what Barak is actively working on. Each project links to the <strong>spec files</strong> that control it and the <strong>outputs</strong> it produces. Think of it as a control panel — Telegram is where you give instructions, this is where you track results.</p>
-
-    <div class="project-card">
-      <div class="project-header">
-        <div class="project-title">📰 Daily Hiring Fraud Briefing</div>
-        <span class="project-status status-active">● Active</span>
-      </div>
-      <div class="project-desc">Automated daily news briefing delivered at 6:30 AM PT to Telegram. Covers hiring fraud, deepfakes, DPRK IT workers, identity verification, and adjacent topics. Filtered to real journalism only — no vendor blogs, no filler.</div>
-      <div class="project-links">
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/menachem-briefing.md" target="_blank" class="project-link">
-          <span class="link-icon">📝</span>
-          <div><div class="link-label">Briefing Spec</div><div class="link-desc">What goes in, source rules, format</div></div>
-        </a>
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/menachem-preferences.md" target="_blank" class="project-link">
-          <span class="link-icon">⚙️</span>
-          <div><div class="link-label">Working Preferences</div><div class="link-desc">Signal over volume, quality filters</div></div>
-        </a>
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/USER.md" target="_blank" class="project-link">
-          <span class="link-icon">👤</span>
-          <div><div class="link-label">User Profile</div><div class="link-desc">Timezone, role, preferences</div></div>
-        </a>
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/HEARTBEAT.md" target="_blank" class="project-link">
-          <span class="link-icon">⏰</span>
-          <div><div class="link-label">Schedule Config</div><div class="link-desc">Cron job & heartbeat setup</div></div>
-        </a>
-      </div>
-      <div class="project-meta">
-        <div class="project-meta-item"><strong>Schedule:</strong> Daily, 6:30 AM PT</div>
-        <div class="project-meta-item"><strong>Delivery:</strong> Telegram group</div>
-        <div class="project-meta-item"><strong>Since:</strong> April 6, 2026</div>
-        <div class="project-meta-item"><strong>Owner:</strong> Menachem</div>
-      </div>
-    </div>
-
-    <div class="project-card" style="opacity: 0.7;">
-      <div class="project-header">
-        <div class="project-title">🔍 Live Workspace Dashboard</div>
-        <span class="project-status status-planned">◐ In Development</span>
-      </div>
-      <div class="project-desc">Turn this page into a fully dynamic dashboard — auto-updated with each briefing, showing recent outputs, project history, and live status. This is the next evolution of the static explainer you're looking at right now.</div>
-      <div class="project-meta">
-        <div class="project-meta-item"><strong>Status:</strong> Designing approach</div>
-        <div class="project-meta-item"><strong>Goal:</strong> Replace Telegram scroll as the tracking layer</div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: 16px; border-left: 3px solid var(--accent);">
-      <h3>💡 How This Section Works</h3>
-      <p>Every project Barak runs for you gets a card here. The spec files are the <em>source of truth</em> — click them to see exactly what rules Barak is following. If something's wrong with an output, the spec file is where the fix happens. Tell Barak in Telegram, he updates the spec, and the next run reflects it.</p>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="section">
-    <div class="section-header"><div class="section-icon">✅</div><h2>Open Tasks</h2></div>
-    <p class="dashboard-intro">Active work items, open loops, and things that need attention. This list updates as tasks are completed or new ones come in. <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/tasks-menachem.md" target="_blank" style="color: #61F393;">View raw task file →</a></p>
-
-    <div class="task-item">
-      <div class="task-top">
-        <div class="task-title">🔔 Verify Morning Briefing Delivery</div>
-        <span class="task-status task-status-waiting">⏳ Waiting</span>
-      </div>
-      <div class="task-desc">Cron job is registered and scheduled for 6:30 AM PT daily. Need to confirm the first live run actually fires and delivers a quality briefing to Telegram.</div>
-      <div class="task-needs">👤 Needs Menachem: Feedback after first delivery — did it arrive on time? Was quality acceptable?</div>
-      <div class="task-date">Added April 10, 2026 · First run: tomorrow 6:30 AM PT</div>
-    </div>
-
-    <div class="task-item">
-      <div class="task-top">
-        <div class="task-title">📊 Build Auto-Updating Dashboard</div>
-        <span class="task-status task-status-planned">📋 Planned</span>
-      </div>
-      <div class="task-desc">Evolve this static site into a live dashboard that auto-updates with each briefing — showing recent outputs, project history, and real-time status instead of manually pushed content.</div>
-      <div class="task-needs">👤 Needs Menachem: What info is most useful to see at a glance?</div>
-      <div class="task-date">Added April 10, 2026</div>
-    </div>
-
-    <div class="task-item">
-      <div class="task-top">
-        <div class="task-title">📰 Archive Briefings to Website</div>
-        <span class="task-status task-status-planned">📋 Planned</span>
-      </div>
-      <div class="task-desc">After each daily briefing, push the content to this repo so it's viewable and searchable on the dashboard. Creates a running archive of all briefings sent.</div>
-      <div class="task-date">Added April 10, 2026 · Blocked by: first successful briefing delivery</div>
-    </div>
-
-    <div class="task-item">
-      <div class="task-top">
-        <div class="task-title">💬 Define Additional Projects</div>
-        <span class="task-status task-status-discussion">💬 Open Discussion</span>
-      </div>
-      <div class="task-desc">Menachem mentioned wanting workflows beyond the daily briefing. Need to identify what those projects look like — content calendar? Competitor monitoring? Research pipelines? Each would get its own project card and spec file.</div>
-      <div class="task-needs">👤 Needs Menachem: What recurring or ongoing work would be most valuable?</div>
-      <div class="task-date">Added April 10, 2026</div>
-    </div>
-
-    <div class="card" style="margin-top: 20px; background: var(--card);">
-      <h3 style="margin-bottom: 12px;">✅ Recently Completed</h3>
-      <div class="completed-list">
-        <div class="completed-item"><span class="completed-check">✓</span> Fix broken cron job for morning briefing <span style="margin-left: auto; color: var(--dim); font-size: 0.75rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check">✓</span> Save Menachem's timezone & preferences to memory <span style="margin-left: auto; color: var(--dim); font-size: 0.75rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check">✓</span> Deliver catch-up briefing after Passover gap <span style="margin-left: auto; color: var(--dim); font-size: 0.75rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check">✓</span> Build explainer website with Clarity branding <span style="margin-left: auto; color: var(--dim); font-size: 0.75rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check">✓</span> Add memory deep dive & limitations section <span style="margin-left: auto; color: var(--dim); font-size: 0.75rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check">✓</span> Make memory file names clickable <span style="margin-left: auto; color: var(--dim); font-size: 0.75rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check">✓</span> Add Active Projects dashboard section <span style="margin-left: auto; color: var(--dim); font-size: 0.75rem;">Apr 10</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-  <div class="section">
-    <div class="section-header"><div class="section-icon">🔬</div><h2>Case Study: How This Page Got Built</h2></div>
-    <p style="color: var(--muted); margin-bottom: 20px;">This website was built and deployed by Barak in a single conversation. Here's every step — no human touched a code editor or deploy button.</p>
-    <div class="stat-row">
-      <div class="stat-box"><div class="stat-value">~2 min</div><div class="stat-label">Total time</div></div>
-      <div class="stat-box"><div class="stat-value">1</div><div class="stat-label">HTML file</div></div>
-      <div class="stat-box"><div class="stat-value">3</div><div class="stat-label">APIs called</div></div>
-      <div class="stat-box"><div class="stat-value">0</div><div class="stat-label">Humans in the loop</div></div>
-    </div>
-    <div class="card" style="margin-bottom: 28px; border-left: 3px solid #0C6BD8;"><h3>💬 The Prompt</h3><p>Michael said: <em>"Make a website explaining how you work, one that we can open from remote without access to your machine or network. Add graphics to make it really understandable."</em></p></div>
-    <div class="timeline">
-      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 1 — Write the code</div><div class="timeline-title">Generated a complete HTML page from scratch</div><div class="timeline-desc">Wrote the entire page — HTML, CSS, responsive layout, animations, visual diagrams — in a single file. No frameworks, no build step.</div><span class="timeline-tool">write</span></div>
-      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 2 — Find a hosting strategy</div><div class="timeline-title">Chose GitHub Pages for free, public hosting</div><div class="timeline-desc">The requirement was "open from remote." The server isn't publicly accessible, so external hosting was needed. GitHub Pages = free, no config.</div><span class="timeline-tool">composio search</span></div>
-      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 3 — Create the repository</div><div class="timeline-title">Called GitHub API to create the repo</div><div class="timeline-desc">Created a new public repository via API. Single call — no git clone, no SSH keys.</div><span class="timeline-tool">GitHub → Create Repository</span></div>
-      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 4 — Push the code</div><div class="timeline-title">Committed HTML directly via API</div><div class="timeline-desc">Used GitHub's multi-file commit API to push index.html to main. One API call, one atomic commit.</div><span class="timeline-tool">GitHub → Commit Files</span></div>
-      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 5 — Enable GitHub Pages</div><div class="timeline-title">Turned on Pages, source: main branch, root</div><div class="timeline-desc">One more API call. GitHub builds automatically. Live within 30 seconds.</div><span class="timeline-tool">GitHub → Enable Pages</span></div>
-      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 6 — Share the link</div><div class="timeline-title">Posted the live URL to Telegram</div><div class="timeline-desc">From Michael's message to a live public website — about 2 minutes total.</div><span class="timeline-tool">Telegram</span></div>
-    </div>
-    <div class="card" style="margin-top: 28px; border-left: 3px solid var(--accent);"><h3>🎯 The Point</h3><p>This wasn't a template or a site builder. Barak wrote code, chose an architecture, called APIs in sequence, and shipped a production URL — all from a chat message. <strong>That's what "I can code" means in practice.</strong></p></div>
-  </div>
+<div class="intro-section">
+  <p>Barak isn't a chatbot. He's an <strong>agent</strong> — a piece of software that runs 24/7 on his own server, with his own file system, his own tools, and his own memory. He can search the web, write code, push to GitHub, run scheduled tasks, and learn your preferences over time. This site explains how he works, what he's doing, and how to get the most out of him.</p>
 </div>
+
+<div class="nav-cards">
+  <a href="architecture.html" class="nav-card">
+    <div class="nav-card-icon">🏗️</div>
+    <h3>Architecture & Memory</h3>
+    <p>How Barak is built, why file-based memory is powerful, where it breaks, and the identity files that shape his personality.</p>
+    <span class="arrow">Explore →</span>
+  </a>
+  <a href="projects.html" class="nav-card">
+    <div class="nav-card-icon">📋</div>
+    <h3>Projects & Tasks</h3>
+    <p>Active projects, open tasks, and what needs your input. Your dashboard for tracking work outside Telegram.</p>
+    <span class="arrow">View dashboard →</span>
+  </a>
+  <a href="case-study.html" class="nav-card">
+    <div class="nav-card-icon">🔬</div>
+    <h3>Case Study</h3>
+    <p>How this very website was built and deployed in ~2 minutes from a chat message — step by step.</p>
+    <span class="arrow">Read the story →</span>
+  </a>
+</div>
+
+<div class="quick-stats">
+  <div class="quick-stat"><div class="stat-val">24/7</div><div class="stat-lbl">Always running</div></div>
+  <div class="quick-stat"><div class="stat-val">∞</div><div class="stat-lbl">Memory capacity</div></div>
+  <div class="quick-stat"><div class="stat-val">6:30a</div><div class="stat-lbl">Daily briefing</div></div>
+  <div class="quick-stat"><div class="stat-val">⚡</div><div class="stat-lbl">Opus-powered</div></div>
+</div>
+
 <div class="footer">
   <img class="footer-logo" src="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846e27_Clarity%20Logo%20white.svg" alt="Clarity">
   <div class="footer-text">Built by <span>Barak ⚡</span> · Running on OpenClaw · Last updated <span id="date"></span></div>
 </div>
 <script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('show');
+  }
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('mobileMenu');
+    var btn = document.querySelector('.hamburger');
+    if (menu && !menu.contains(e.target) && !btn.contains(e.target)) menu.classList.remove('show');
+  });
   document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 </script>
 </body>
