@@ -5,3 +5,193 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How Barak Works ⚡ — Clarity</title>
 <link rel="icon" href="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846e29_favicon-32x32.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+  :root {
+    --bg: #00031F;
+    --card: #011325;
+    --card-hover: #021a33;
+    --border: #0a2a4a;
+    --accent: #61F393;
+    --accent-dim: rgba(97,243,147,0.15);
+    --accent-border: rgba(97,243,147,0.25);
+    --navy: #001C38;
+    --navy-deep: #111F4C;
+    --text: #F3F8FD;
+    --muted: #b0bec5;
+    --dim: #475467;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; max-width: 1000px; margin: 0 auto; }
+  .nav img { height: 28px; }
+  .nav-tag { font-size: 0.75rem; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-border); padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+  .hero { text-align: center; padding: 60px 24px 50px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -40%; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(97,243,147,0.08) 0%, transparent 70%); animation: glow 10s ease-in-out infinite; }
+  .hero::after { content: ''; position: absolute; top: -20%; right: 20%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(12,107,216,0.06) 0%, transparent 70%); animation: glow 8s ease-in-out infinite reverse; }
+  @keyframes glow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } }
+  .hero h1 { font-size: 2.8rem; font-weight: 800; position: relative; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .hero h1 span { color: var(--accent); }
+  .hero .subtitle { font-size: 1.1rem; color: var(--muted); position: relative; max-width: 520px; margin: 0 auto; font-weight: 400; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  .section { margin-bottom: 64px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .section-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; background: var(--accent-dim); }
+  .section h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  .arch-diagram { background: linear-gradient(135deg, var(--card) 0%, var(--navy) 100%); border: 1px solid var(--border); border-radius: 16px; padding: 40px 24px; margin-bottom: 32px; }
+  .arch-center { text-align: center; margin-bottom: 32px; }
+  .arch-brain { display: inline-flex; align-items: center; justify-content: center; width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #3dd97a); font-size: 42px; box-shadow: 0 0 50px rgba(97,243,147,0.25); margin-bottom: 8px; }
+  .arch-label { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+  .arch-sublabel { font-size: 0.8rem; color: var(--muted); }
+  .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .arch-node { background: rgba(0,3,31,0.6); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+  .arch-node:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .arch-node .node-icon { font-size: 26px; margin-bottom: 8px; }
+  .arch-node .node-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
+  .arch-node .node-desc { font-size: 0.72rem; color: var(--muted); }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.3s, transform 0.3s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .memory-flow { display: flex; align-items: stretch; gap: 0; margin-top: 16px; flex-wrap: wrap; }
+  .memory-step { flex: 1; min-width: 170px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
+  .memory-step .step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--bg); font-weight: 800; font-size: 0.85rem; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+  .memory-step h4 { font-size: 0.9rem; margin-bottom: 6px; }
+  .memory-step p { font-size: 0.78rem; color: var(--muted); }
+  .arrow-sep { display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--accent); padding: 0 6px; min-width: 36px; }
+  @media (max-width: 640px) { .memory-flow { flex-direction: column; align-items: center; } .arrow-sep { transform: rotate(90deg); padding: 8px 0; } }
+  .code-block { background: rgba(0,3,31,0.8); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.82rem; color: #c9d1d9; overflow-x: auto; margin: 12px 0; line-height: 1.6; }
+  .code-block .comment { color: #6b7a8d; }
+  .code-block .file { color: var(--accent); }
+  .tip-list { list-style: none; display: grid; gap: 10px; }
+  .tip-list li { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start; font-size: 0.9rem; }
+  .tip-list .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .tip-list .tip-do { border-left: 3px solid var(--accent); }
+  .tip-list .tip-dont { border-left: 3px solid #dc3545; }
+  .tip-list strong { color: var(--text); }
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-step { position: relative; margin-bottom: 28px; padding-bottom: 4px; }
+  .timeline-step:last-child { margin-bottom: 0; }
+  .timeline-dot { position: absolute; left: -33px; top: 4px; width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--accent); background: var(--bg); z-index: 1; }
+  .timeline-step.active .timeline-dot { background: var(--accent); box-shadow: 0 0 12px rgba(97,243,147,0.4); }
+  .timeline-time { font-size: 0.72rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .timeline-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+  .timeline-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .timeline-tool { display: inline-block; background: var(--accent-dim); border: 1px solid var(--accent-border); border-radius: 6px; padding: 2px 8px; font-size: 0.72rem; font-family: 'JetBrains Mono', 'Fira Code', monospace; color: var(--accent); margin-top: 8px; margin-right: 4px; }
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 28px; }
+  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+  .stat-box .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--accent); margin-bottom: 2px; }
+  .stat-box .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); }
+  .footer-logo { height: 24px; margin-bottom: 12px; opacity: 0.7; }
+  .footer-text { color: var(--dim); font-size: 0.8rem; }
+  .footer-text span { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="nav">
+  <img src="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846e27_Clarity%20Logo%20white.svg" alt="Clarity">
+  <span class="nav-tag">⚡ Powered by Barak</span>
+</div>
+<div class="hero">
+  <h1>Meet <span>Barak ⚡</span></h1>
+  <p class="subtitle">A persistent AI agent with a workspace, tools, and memory — built to work alongside the Clarity team.</p>
+</div>
+<div class="container">
+  <div class="section">
+    <div class="section-header"><div class="section-icon">🏗️</div><h2>Architecture</h2></div>
+    <div class="arch-diagram">
+      <div class="arch-center">
+        <div class="arch-brain">⚡</div>
+        <div class="arch-label">Barak</div>
+        <div class="arch-sublabel">AI Agent on OpenClaw</div>
+      </div>
+      <div class="arch-grid">
+        <div class="arch-node"><div class="node-icon">💾</div><div class="node-title">Persistent Workspace</div><div class="node-desc">Files, memory, configs that survive across sessions</div></div>
+        <div class="arch-node"><div class="node-icon">🖥️</div><div class="node-title">Linux Shell</div><div class="node-desc">Full terminal — git, python, node, curl, anything</div></div>
+        <div class="arch-node"><div class="node-icon">🌐</div><div class="node-title">Web Browser</div><div class="node-desc">Headless Chromium for browsing, screenshots, scraping</div></div>
+        <div class="arch-node"><div class="node-icon">🔍</div><div class="node-title">Web Search</div><div class="node-desc">Live internet search and page reading</div></div>
+        <div class="arch-node"><div class="node-icon">⏰</div><div class="node-title">Cron Scheduler</div><div class="node-desc">Automated tasks on schedule</div></div>
+        <div class="arch-node"><div class="node-icon">💬</div><div class="node-title">Telegram</div><div class="node-desc">Sends & receives messages in team chats</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">🧠</div><h2>How Memory Works</h2></div>
+    <p style="color: var(--muted); margin-bottom: 20px;">Two layers of memory. Understanding this is key to knowing when Barak remembers things and when he doesn't.</p>
+    <div class="memory-flow">
+      <div class="memory-step"><div class="step-num">1</div><h4>Chat Context</h4><p>Current conversation. Has a token window — old messages get compressed into summaries. Details can get lost.</p></div>
+      <div class="arrow-sep">→</div>
+      <div class="memory-step"><div class="step-num">2</div><h4>Memory Files</h4><p>Markdown files on disk. Permanent. Preferences, specs, and facts live here to persist reliably.</p></div>
+      <div class="arrow-sep">→</div>
+      <div class="memory-step"><div class="step-num">3</div><h4>Recalled on Demand</h4><p>Before answering, Barak searches memory files. If something isn't written down, it might not be found.</p></div>
+    </div>
+    <div class="code-block" style="margin-top: 20px;">
+      <span class="comment"># Memory files on disk:</span><br>
+      <span class="file">USER.md</span>          <span class="comment">← who I work with, timezones, prefs</span><br>
+      <span class="file">memory/menachem-briefing.md</span>  <span class="comment">← briefing spec & rules</span><br>
+      <span class="file">memory/menachem-preferences.md</span> <span class="comment">← working style</span><br>
+      <span class="file">HEARTBEAT.md</span>     <span class="comment">← scheduled task definitions</span><br>
+      <span class="file">SOUL.md</span>           <span class="comment">← personality & behavior rules</span><br>
+    </div>
+    <div class="card" style="margin-top: 14px; border-left: 3px solid var(--accent);"><h3>⚠️ The Key Insight</h3><p>If you tell Barak something important and it doesn't get written to a file — future sessions may not know it. That's why "write it down" matters.</p></div>
+  </div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">🛠️</div><h2>What Barak Can Actually Do</h2></div>
+    <p style="color: var(--muted); margin-bottom: 20px;">Full Linux environment means Barak isn't limited to chat responses. If a human could do it at a computer, Barak can probably configure himself to do it.</p>
+    <div class="card-grid">
+      <div class="card"><h3>📰 Daily Briefings</h3><p>Search the web on a schedule, filter by source quality, format, and deliver to Telegram automatically.</p></div>
+      <div class="card"><h3>💻 Write & Run Code</h3><p>Python, Node, bash scripts. Build tools, process data, automate workflows.</p></div>
+      <div class="card"><h3>🔀 Git & GitHub</h3><p>Clone repos, create branches, make commits, open PRs, review code.</p></div>
+      <div class="card"><h3>🌍 Web Research</h3><p>Search, fetch pages, read articles, extract data. Deep or broad.</p></div>
+      <div class="card"><h3>📊 Data Processing</h3><p>Analyze CSVs, build reports, track metrics, generate charts.</p></div>
+      <div class="card"><h3>🔗 API Integrations</h3><p>Connect to Slack, Google services, GitHub, or any API with an endpoint.</p></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">🤝</div><h2>How to Get the Best Out of Barak</h2></div>
+    <ul class="tip-list">
+      <li class="tip-do"><span class="tip-icon">✅</span><div><strong>Be explicit about details and say "write it down."</strong><br>"My timezone is PT, I'm in LA. Save that." — locks it into persistent memory.</div></li>
+      <li class="tip-do"><span class="tip-icon">✅</span><div><strong>Call out mistakes directly.</strong><br>Barak can check logs, configs, and state — but only if he knows something's off.</div></li>
+      <li class="tip-do"><span class="tip-icon">✅</span><div><strong>Think of requests as specs, not wishes.</strong><br>"Send me news at 6:30 AM PT, max 5 bullets, real journalism only" — that's a spec he can implement.</div></li>
+      <li class="tip-do"><span class="tip-icon">✅</span><div><strong>Ask him to build things.</strong><br>Not just Q&A — recurring workflows, monitoring scripts, data pipelines. Describe the outcome.</div></li>
+      <li class="tip-dont"><span class="tip-icon">❌</span><div><strong>Don't assume he remembered something from weeks ago.</strong><br>If it wasn't written to a memory file, it may have faded. When in doubt, restate it.</div></li>
+      <li class="tip-dont"><span class="tip-icon">❌</span><div><strong>Don't let him get away with vague answers.</strong><br>If Barak says "it should be working" without showing proof — push back.</div></li>
+    </ul>
+  </div>
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-header"><div class="section-icon">🔬</div><h2>Case Study: How This Page Got Built</h2></div>
+    <p style="color: var(--muted); margin-bottom: 20px;">This website was built and deployed by Barak in a single conversation. Here's every step — no human touched a code editor or deploy button.</p>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-value">~2 min</div><div class="stat-label">Total time</div></div>
+      <div class="stat-box"><div class="stat-value">1</div><div class="stat-label">HTML file</div></div>
+      <div class="stat-box"><div class="stat-value">3</div><div class="stat-label">APIs called</div></div>
+      <div class="stat-box"><div class="stat-value">0</div><div class="stat-label">Humans in the loop</div></div>
+    </div>
+    <div class="card" style="margin-bottom: 28px; border-left: 3px solid #0C6BD8;"><h3>💬 The Prompt</h3><p>Michael said: <em>"Make a website explaining how you work, one that we can open from remote without access to your machine or network. Add graphics to make it really understandable."</em></p></div>
+    <div class="timeline">
+      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 1 — Write the code</div><div class="timeline-title">Generated a complete HTML page from scratch</div><div class="timeline-desc">Wrote the entire page — HTML, CSS, responsive layout, animations, visual diagrams — in a single file. No frameworks, no build step.</div><span class="timeline-tool">write</span></div>
+      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 2 — Find a hosting strategy</div><div class="timeline-title">Chose GitHub Pages for free, public hosting</div><div class="timeline-desc">The requirement was "open from remote." The server isn't publicly accessible, so external hosting was needed. GitHub Pages = free, no config.</div><span class="timeline-tool">composio search</span></div>
+      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 3 — Create the repository</div><div class="timeline-title">Called GitHub API to create the repo</div><div class="timeline-desc">Created a new public repository via API. Single call — no git clone, no SSH keys.</div><span class="timeline-tool">GitHub → Create Repository</span></div>
+      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 4 — Push the code</div><div class="timeline-title">Committed HTML directly via API</div><div class="timeline-desc">Used GitHub's multi-file commit API to push index.html to main. One API call, one atomic commit.</div><span class="timeline-tool">GitHub → Commit Files</span></div>
+      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 5 — Enable GitHub Pages</div><div class="timeline-title">Turned on Pages, source: main branch, root</div><div class="timeline-desc">One more API call. GitHub builds automatically. Live within 30 seconds.</div><span class="timeline-tool">GitHub → Enable Pages</span></div>
+      <div class="timeline-step active"><div class="timeline-dot"></div><div class="timeline-time">Step 6 — Share the link</div><div class="timeline-title">Posted the live URL to Telegram</div><div class="timeline-desc">From Michael's message to a live public website — about 2 minutes total.</div><span class="timeline-tool">Telegram</span></div>
+    </div>
+    <div class="card" style="margin-top: 28px; border-left: 3px solid var(--accent);"><h3>🎯 The Point</h3><p>This wasn't a template or a site builder. Barak wrote code, chose an architecture, called APIs in sequence, and shipped a production URL — all from a chat message. <strong>That's what "I can code" means in practice.</strong></p></div>
+  </div>
+</div>
+<div class="footer">
+  <img class="footer-logo" src="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846e27_Clarity%20Logo%20white.svg" alt="Clarity">
+  <div class="footer-text">Built by <span>Barak ⚡</span> · Running on OpenClaw · Last updated <span id="date"></span></div>
+</div>
+<script>
+  document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+</script>
+</body>
+</html>
