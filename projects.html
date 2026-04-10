@@ -12,6 +12,8 @@
     --green: #61F393; --navy: #0a1628; --white: #FFFFFF; --bg: #F0F4F8;
     --secondary: #64748B; --border: #E2E8F0; --accent-muted: #E8FFF0;
     --danger: #EF4444; --danger-muted: #FEE2E2;
+    --warning: #F59E0B; --warning-muted: #FFF7ED; --warning-border: #fed7aa;
+    --info: #3B82F6; --info-muted: #EFF6FF; --info-border: #bfdbfe;
     --card-bg: #FFFFFF; --card-shadow: 0 1px 3px rgba(10,22,40,0.06);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,69 +37,126 @@
 
   /* Common */
   .container { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
-  .section { margin-bottom: 64px; }
+  .section { margin-bottom: 56px; }
   .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
   .section-num { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; background: var(--accent-muted); color: var(--navy); }
   .section h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; }
-  .card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 22px; box-shadow: var(--card-shadow); transition: border-color 0.3s, transform 0.2s; }
-  .card:hover { border-color: var(--green); transform: translateY(-1px); }
-  .card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
-  .card p { font-size: 0.85rem; color: var(--secondary); line-height: 1.6; }
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
   .divider { height: 1.5px; background: var(--border); margin: 48px 0; }
-  .code-block { background: var(--navy); border-radius: 8px; padding: 16px; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.8rem; color: #c9d1d9; overflow-x: auto; margin: 12px 0; line-height: 1.7; }
-  .code-block .comment { color: #6b7a8d; }
-  .code-block .file { color: var(--green); }
-  .green-text { color: #0a1628; font-weight: 600; }
   .green-link { color: var(--navy); font-weight: 600; border-bottom: 2px solid var(--green); text-decoration: none; }
   .green-link:hover { text-decoration: none; color: #0a1628; }
-  .accent-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 8px; flex-shrink: 0; margin-top: 6px; }
-  .accent-bar { width: 3px; border-radius: 2px; background: var(--green); flex-shrink: 0; }
-  .danger-bar { width: 3px; border-radius: 2px; background: var(--danger); flex-shrink: 0; }
 
   /* Footer */
   .footer { text-align: center; padding: 40px 24px; border-top: 1.5px solid var(--border); }
   .footer-logo { height: 22px; margin-bottom: 10px; opacity: 0.8; }
   .footer-text { color: var(--secondary); font-size: 0.78rem; }
 
+  /* Hero */
   .page-hero { text-align: center; padding: 50px 24px 40px; }
   .page-hero h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
-  .page-hero p { color: var(--secondary); max-width: 520px; margin: 0 auto; }
-  .project-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 28px; margin-bottom: 16px; box-shadow: var(--card-shadow); transition: border-color 0.3s; }
-  .project-card:hover { border-color: var(--green); }
-  .project-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-  .project-title { font-size: 1.1rem; font-weight: 700; }
-  .status-badge { font-size: 0.72rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+  .page-hero p { color: var(--secondary); max-width: 560px; margin: 0 auto; font-size: 0.95rem; }
+
+  /* Status badges */
+  .status-badge { font-size: 0.72rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; }
   .status-active { background: var(--accent-muted); color: var(--navy); border: 1.5px solid #c6f7d8; }
-  .status-planned { background: #EFF6FF; color: #1e40af; border: 1.5px solid #bfdbfe; }
-  .status-phase0 { background: #FFF7ED; color: #9a3412; border: 1.5px solid #fed7aa; }
-  .project-desc { color: var(--secondary); font-size: 0.88rem; margin-bottom: 18px; line-height: 1.5; }
-  .project-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-  .project-link { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 12px 16px; text-decoration: none; color: var(--navy); transition: border-color 0.3s; font-size: 0.85rem; }
-  .project-link:hover { border-color: var(--green); text-decoration: none; }
-  .project-link .link-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-  .project-link .link-label { font-weight: 600; }
-  .project-link .link-desc { font-size: 0.72rem; color: var(--secondary); }
-  .project-meta { display: flex; gap: 20px; margin-top: 16px; padding-top: 16px; border-top: 1.5px solid var(--border); flex-wrap: wrap; }
-  .project-meta-item { font-size: 0.78rem; color: var(--secondary); }
+  .status-active .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+  .status-planned { background: var(--info-muted); color: #1e40af; border: 1.5px solid var(--info-border); }
+  .status-phase0 { background: var(--warning-muted); color: #9a3412; border: 1.5px solid var(--warning-border); }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.4); } }
+
+  /* Project cards */
+  .project-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 0; margin-bottom: 20px; box-shadow: var(--card-shadow); transition: border-color 0.3s; overflow: hidden; }
+  .project-card:hover { border-color: var(--green); }
+  .project-card-top { padding: 28px 28px 0; }
+  .project-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 10px; }
+  .project-title { font-size: 1.1rem; font-weight: 700; }
+  .project-subtitle { font-size: 0.85rem; color: var(--secondary); margin-bottom: 20px; line-height: 1.5; }
+
+  /* Activity timeline */
+  .timeline { padding: 0 28px 20px; }
+  .timeline-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary); margin-bottom: 12px; }
+  .timeline-item { display: flex; align-items: flex-start; gap: 12px; position: relative; padding-bottom: 14px; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-track { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 12px; padding-top: 2px; }
+  .timeline-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .timeline-dot.muted { background: var(--border); }
+  .timeline-line { width: 1.5px; background: var(--border); flex-grow: 1; min-height: 14px; margin-top: 4px; }
+  .timeline-item:last-child .timeline-line { display: none; }
+  .timeline-content { flex: 1; min-width: 0; }
+  .timeline-date { font-size: 0.72rem; color: var(--secondary); font-weight: 600; }
+  .timeline-text { font-size: 0.83rem; color: var(--navy); line-height: 1.45; }
+
+  /* Project sections */
+  .project-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1.5px solid var(--border); }
+  .project-sections.single { grid-template-columns: 1fr; }
+  .project-section { padding: 20px 28px; }
+  .project-section + .project-section { border-left: 1.5px solid var(--border); }
+  .project-section-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary); margin-bottom: 8px; }
+  .project-section-text { font-size: 0.83rem; color: var(--navy); line-height: 1.5; }
+  .project-section-text.blocked { color: #9a3412; }
+  @media (max-width: 600px) {
+    .project-sections { grid-template-columns: 1fr; }
+    .project-section + .project-section { border-left: none; border-top: 1.5px solid var(--border); }
+  }
+
+  /* Spec links */
+  .spec-links { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 28px; border-top: 1.5px solid var(--border); }
+  .spec-link { display: inline-flex; align-items: center; gap: 6px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 6px; padding: 6px 14px; text-decoration: none; color: var(--navy); transition: border-color 0.2s; font-size: 0.78rem; font-weight: 600; }
+  .spec-link:hover { border-color: var(--green); text-decoration: none; }
+  .spec-link-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+  /* Project footer meta */
+  .project-footer { display: flex; gap: 20px; padding: 14px 28px; border-top: 1.5px solid var(--border); background: var(--bg); flex-wrap: wrap; }
+  .project-meta-item { font-size: 0.75rem; color: var(--secondary); }
   .project-meta-item strong { color: var(--navy); }
-  .task-item { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 12px; box-shadow: var(--card-shadow); transition: border-color 0.3s; }
+
+  /* Planned card (dimmed) */
+  .project-card.planned { opacity: 0.65; }
+  .project-card.planned:hover { opacity: 0.85; }
+
+  /* Task groups */
+  .task-group { margin-bottom: 32px; }
+  .task-group-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .task-group-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .task-group-dot.urgent { background: #F59E0B; }
+  .task-group-dot.planned { background: var(--info); }
+  .task-group-dot.done { background: var(--green); }
+  .task-group-title { font-size: 0.95rem; font-weight: 700; }
+  .task-group-count { font-size: 0.72rem; color: var(--secondary); font-weight: 600; background: var(--bg); border: 1.5px solid var(--border); padding: 2px 10px; border-radius: 12px; }
+
+  /* Task items */
+  .task-item { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 10px; box-shadow: var(--card-shadow); transition: border-color 0.3s; }
   .task-item:hover { border-color: var(--green); }
-  .task-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
-  .task-title { font-size: 0.92rem; font-weight: 700; }
-  .task-status { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 16px; }
-  .ts-waiting { background: #FFF7ED; color: #9a3412; border: 1px solid #fed7aa; }
-  .ts-planned { background: #EFF6FF; color: #1e40af; border: 1px solid #bfdbfe; }
-  .ts-discussion { background: #F5F3FF; color: #5b21b6; border: 1px solid #ddd6fe; }
-  .task-desc { font-size: 0.85rem; color: var(--secondary); line-height: 1.5; margin-bottom: 8px; }
-  .task-needs { font-size: 0.8rem; color: #9a3412; background: #FFF7ED; border-radius: 6px; padding: 8px 12px; }
-  .task-date { font-size: 0.72rem; color: var(--secondary); margin-top: 8px; }
-  .completed-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 0.85rem; color: var(--secondary); border-bottom: 1px solid var(--border); }
+  .task-item.urgent { border-left: 3px solid #F59E0B; }
+  .task-item-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
+  .task-title { font-size: 0.88rem; font-weight: 700; }
+  .task-owner { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 12px; background: var(--bg); color: var(--secondary); border: 1px solid var(--border); }
+  .task-desc { font-size: 0.82rem; color: var(--secondary); line-height: 1.5; }
+
+  /* Completed items */
+  .completed-list { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 20px 24px; box-shadow: var(--card-shadow); }
+  .completed-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 0.83rem; color: var(--secondary); border-bottom: 1px solid var(--border); }
   .completed-item:last-child { border-bottom: none; }
-  .completed-check { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .completed-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .completed-date { margin-left: auto; font-size: 0.72rem; color: var(--secondary); white-space: nowrap; flex-shrink: 0; }
+
+  /* How it works card */
+  .info-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 28px; box-shadow: var(--card-shadow); }
+  .info-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+  .info-card p { font-size: 0.85rem; color: var(--secondary); line-height: 1.7; margin-bottom: 10px; }
+  .info-card p:last-child { margin-bottom: 0; }
+
+  /* Next milestone highlight */
+  .milestone { display: flex; align-items: center; gap: 10px; background: var(--accent-muted); border: 1.5px solid #c6f7d8; border-radius: 8px; padding: 12px 16px; margin: 16px 28px; }
+  .milestone-arrow { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+  .milestone-arrow svg { width: 10px; height: 10px; }
+  .milestone-text { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+  .milestone-text span { font-weight: 400; color: var(--secondary); }
+
 </style>
 </head>
 <body>
+
+<!-- Nav -->
 <div class="nav" style="position:relative;">
   <a href="index.html"><img class="nav-logo" src="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846dfe_Clarity%20Logo.svg" alt="Clarity"></a>
   <div class="nav-links">
@@ -116,76 +175,281 @@
     <a href="case-study.html" class="nav-link">Case Study</a>
   </div>
 </div>
-<div class="page-hero"><h1>Projects & Tasks</h1><p>What Barak is working on, what's open, and what needs your input.</p></div>
+
+<!-- Hero -->
+<div class="page-hero">
+  <h1>Projects & Tasks</h1>
+  <p>Live dashboard of everything Barak is working on. Updated every 6 hours or whenever work ships.</p>
+</div>
+
+<!-- Content -->
 <div class="container">
+
+  <!-- ===================== PROJECTS ===================== -->
   <div class="section">
     <div class="section-header"><div class="section-num">01</div><h2>Active Projects</h2></div>
 
+    <!-- Project 1: Daily Hiring Fraud Briefing -->
     <div class="project-card">
-      <div class="project-header"><div class="project-title">Daily Hiring Fraud Briefing</div><span class="status-badge status-active">Active</span></div>
-      <div class="project-desc">Automated daily news briefing at 6:30 AM PT. Covers hiring fraud, deepfakes, DPRK IT workers, identity verification. Real journalism only.</div>
-      <div class="project-links">
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/menachem-briefing.md" target="_blank" class="project-link"><span class="link-dot"></span><div><div class="link-label">Briefing Spec</div><div class="link-desc">What goes in, source rules, format</div></div></a>
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/menachem-preferences.md" target="_blank" class="project-link"><span class="link-dot"></span><div><div class="link-label">Working Preferences</div><div class="link-desc">Signal over volume, quality filters</div></div></a>
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/USER.md" target="_blank" class="project-link"><span class="link-dot"></span><div><div class="link-label">User Profile</div><div class="link-desc">Timezone, role, preferences</div></div></a>
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/HEARTBEAT.md" target="_blank" class="project-link"><span class="link-dot"></span><div><div class="link-label">Schedule Config</div><div class="link-desc">Cron job & heartbeat setup</div></div></a>
+      <div class="project-card-top">
+        <div class="project-header">
+          <div class="project-title">Daily Hiring Fraud Briefing</div>
+          <span class="status-badge status-active"><span class="pulse"></span> Active</span>
+        </div>
+        <div class="project-subtitle">Automated daily news briefing delivered at 6:30 AM PT. Covers hiring fraud, deepfakes, DPRK IT workers, identity verification. Real journalism only — no vendor blogs, no padding.</div>
       </div>
-      <div class="project-meta">
+
+      <!-- Timeline -->
+      <div class="timeline">
+        <div class="timeline-label">Recent Activity</div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 10</div><div class="timeline-text">Cron job registered and verified</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 10</div><div class="timeline-text">Catch-up briefing delivered (post-Passover)</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 10</div><div class="timeline-text">Source quality rules refined after Menachem's feedback</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot muted"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 6</div><div class="timeline-text">Initial briefing spec created</div></div>
+        </div>
+      </div>
+
+      <!-- Next milestone -->
+      <div class="milestone">
+        <div class="milestone-arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#0a1628" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="milestone-text">Next: First automated delivery <span>tomorrow 6:30 AM PT</span></div>
+      </div>
+
+      <!-- Spec links -->
+      <div class="spec-links">
+        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/menachem-briefing.md" target="_blank" class="spec-link"><span class="spec-link-dot"></span> Briefing Spec</a>
+        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/menachem-preferences.md" target="_blank" class="spec-link"><span class="spec-link-dot"></span> Working Preferences</a>
+        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/USER.md" target="_blank" class="spec-link"><span class="spec-link-dot"></span> User Profile</a>
+        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/HEARTBEAT.md" target="_blank" class="spec-link"><span class="spec-link-dot"></span> Schedule Config</a>
+      </div>
+
+      <!-- Footer meta -->
+      <div class="project-footer">
         <div class="project-meta-item"><strong>Schedule:</strong> Daily, 6:30 AM PT</div>
         <div class="project-meta-item"><strong>Delivery:</strong> Telegram</div>
-        <div class="project-meta-item"><strong>Since:</strong> April 6, 2026</div>
         <div class="project-meta-item"><strong>Owner:</strong> Menachem</div>
       </div>
     </div>
 
+    <!-- Project 2: LinkedIn Engagement System -->
     <div class="project-card">
-      <div class="project-header"><div class="project-title">LinkedIn Engagement System</div><span class="status-badge status-phase0">Phase 0</span></div>
-      <div class="project-desc">Systematic management of Michael's LinkedIn presence — finding posts to comment on, drafting in Michael's voice, building Clarity's visibility across four buyer lanes.</div>
-      <div class="project-links">
-        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/linkedin/plan.md" target="_blank" class="project-link"><span class="link-dot"></span><div><div class="link-label">Strategic Plan</div><div class="link-desc">Four lanes, voice, workflow</div></div></a>
+      <div class="project-card-top">
+        <div class="project-header">
+          <div class="project-title">LinkedIn Engagement System</div>
+          <span class="status-badge status-phase0">Phase 0 — Planning</span>
+        </div>
+        <div class="project-subtitle">Systematic management of Michael's LinkedIn presence — finding relevant posts, drafting comments in Michael's voice, building Clarity's visibility across four buyer lanes.</div>
       </div>
-      <div class="project-meta">
+
+      <!-- Timeline -->
+      <div class="timeline">
+        <div class="timeline-label">Recent Activity</div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 10</div><div class="timeline-text">Project added to dashboard</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 8</div><div class="timeline-text">Strategic plan drafted — 4 buyer lanes defined</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 8</div><div class="timeline-text">93+ seed profiles mapped and tiered</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 8</div><div class="timeline-text">40 expansion profiles identified across all lanes</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-track"><div class="timeline-dot muted"></div></div>
+          <div class="timeline-content"><div class="timeline-date">Apr 8</div><div class="timeline-text">Michael's voice profile analyzed from LinkedIn posts</div></div>
+        </div>
+      </div>
+
+      <!-- What's ready / What's blocked -->
+      <div class="project-sections">
+        <div class="project-section">
+          <div class="project-section-label">What's Ready</div>
+          <div class="project-section-text">Strategy, profiles, voice profile</div>
+        </div>
+        <div class="project-section">
+          <div class="project-section-label">What's Blocked</div>
+          <div class="project-section-text blocked">Michael needs to confirm approach. Menachem needs to review seed list.</div>
+        </div>
+      </div>
+
+      <!-- Next milestone -->
+      <div class="milestone" style="margin-top: 0; border-radius: 0; border-left: none; border-right: none; border-bottom: none;">
+        <div class="milestone-arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#0a1628" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="milestone-text">Next: First calibration batch <span>(5-10 draft comments)</span></div>
+      </div>
+
+      <!-- Spec links -->
+      <div class="spec-links">
+        <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/linkedin/plan.md" target="_blank" class="spec-link"><span class="spec-link-dot"></span> Strategic Plan</a>
+      </div>
+
+      <!-- Footer meta -->
+      <div class="project-footer">
         <div class="project-meta-item"><strong>Goal:</strong> 3x/week comment drafts</div>
         <div class="project-meta-item"><strong>Since:</strong> April 8, 2026</div>
         <div class="project-meta-item"><strong>Owners:</strong> Menachem + Michael</div>
       </div>
     </div>
 
-    <div class="project-card" style="opacity: 0.6;">
-      <div class="project-header"><div class="project-title">Live Workspace Dashboard</div><span class="status-badge status-planned">Planned</span></div>
-      <div class="project-desc">Auto-updating dashboard with briefing outputs, project history, and live status.</div>
+    <!-- Project 3: Live Workspace Dashboard -->
+    <div class="project-card planned">
+      <div class="project-card-top">
+        <div class="project-header">
+          <div class="project-title">Live Workspace Dashboard</div>
+          <span class="status-badge status-planned">Planned</span>
+        </div>
+        <div class="project-subtitle">Auto-update this site with briefing outputs and project history. Make every delivery and status change visible without manual work.</div>
+      </div>
+      <div class="project-footer">
+        <div class="project-meta-item"><strong>Status:</strong> Designing approach</div>
+      </div>
     </div>
   </div>
 
   <div class="divider"></div>
 
+  <!-- ===================== TASKS ===================== -->
   <div class="section">
-    <div class="section-header"><div class="section-num">02</div><h2>Open Tasks</h2></div>
-    <p style="color: var(--secondary); margin-bottom: 20px;"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/tasks-menachem.md" target="_blank" class="green-link">View raw task file</a></p>
+    <div class="section-header"><div class="section-num">02</div><h2>Tasks</h2></div>
+    <p style="color: var(--secondary); font-size: 0.85rem; margin-bottom: 28px;">
+      Sourced from <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/tasks-menachem.md" target="_blank" class="green-link">tasks-menachem.md</a>
+    </p>
 
-    <div class="task-item" style="border-left: 3px solid #a78bfa;"><div class="task-top"><div class="task-title">LinkedIn: Confirm Strategy & Voice</div><span class="task-status ts-discussion">Needs Input</span></div><div class="task-desc">Four-lane strategy and voice profile are drafted. Need Michael's sign-off on the approach and tone.</div><div class="task-needs">Needs Michael: Review voice profile and confirm comfort with approach</div><div class="task-date">Added April 8</div></div>
-    <div class="task-item" style="border-left: 3px solid #a78bfa;"><div class="task-top"><div class="task-title">LinkedIn: Confirm Seed Accounts</div><span class="task-status ts-discussion">Needs Input</span></div><div class="task-desc">93+ profiles mapped. Need Menachem to review and confirm priorities.</div><div class="task-needs">Needs Menachem: Review seed list and expansion profiles</div><div class="task-date">Added April 8</div></div>
-    <div class="task-item" style="border-left: 3px solid #a78bfa;"><div class="task-top"><div class="task-title">LinkedIn: First Calibration Batch</div><span class="task-status ts-planned">Planned</span></div><div class="task-desc">Draft 5-10 comments on real posts to calibrate voice. Blocked by strategy confirmation.</div><div class="task-date">Added April 10</div></div>
-    <div class="task-item"><div class="task-top"><div class="task-title">Verify Morning Briefing Delivery</div><span class="task-status ts-waiting">Waiting</span></div><div class="task-desc">Cron job registered for 6:30 AM PT. Awaiting first live run to confirm quality.</div><div class="task-needs">Needs Menachem: Feedback after first delivery</div><div class="task-date">First run: tomorrow 6:30 AM PT</div></div>
-    <div class="task-item"><div class="task-top"><div class="task-title">Archive Briefings to Website</div><span class="task-status ts-planned">Planned</span></div><div class="task-desc">Push briefing content to the repo after each delivery for a searchable archive.</div><div class="task-date">Blocked by: first successful delivery</div></div>
+    <!-- Waiting on You -->
+    <div class="task-group">
+      <div class="task-group-header">
+        <div class="task-group-dot urgent"></div>
+        <div class="task-group-title">Waiting on You</div>
+        <div class="task-group-count">4 items</div>
+      </div>
 
-    <div class="card" style="margin-top: 20px;">
-      <h3>Recently Completed</h3>
-      <div style="margin-top: 10px;">
-        <div class="completed-item"><span class="completed-check"></span> Fix broken cron job for morning briefing <span style="margin-left:auto;color:var(--secondary);font-size:0.72rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check"></span> Save Menachem's timezone & preferences <span style="margin-left:auto;color:var(--secondary);font-size:0.72rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check"></span> Deliver catch-up briefing after Passover <span style="margin-left:auto;color:var(--secondary);font-size:0.72rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check"></span> Build explainer site with Clarity branding <span style="margin-left:auto;color:var(--secondary);font-size:0.72rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check"></span> Add identity files and memory deep dive <span style="margin-left:auto;color:var(--secondary);font-size:0.72rem;">Apr 10</span></div>
-        <div class="completed-item"><span class="completed-check"></span> Apply official brand guidelines <span style="margin-left:auto;color:var(--secondary);font-size:0.72rem;">Apr 10</span></div>
+      <div class="task-item urgent">
+        <div class="task-item-top">
+          <div class="task-title">Connect GitHub Account</div>
+          <div class="task-owner">Menachem</div>
+        </div>
+        <div class="task-desc">Provide your GitHub username so we can migrate off the bodhi-agent setup account. Takes 2 minutes.</div>
+      </div>
+
+      <div class="task-item urgent">
+        <div class="task-item-top">
+          <div class="task-title">LinkedIn: Confirm Seed Accounts</div>
+          <div class="task-owner">Menachem</div>
+        </div>
+        <div class="task-desc">Review the 93+ profiles and confirm priorities before we start commenting.</div>
+      </div>
+
+      <div class="task-item urgent">
+        <div class="task-item-top">
+          <div class="task-title">LinkedIn: Confirm Strategy & Voice</div>
+          <div class="task-owner">Michael</div>
+        </div>
+        <div class="task-desc">Review voice profile and confirm comfort with the 4-lane engagement approach.</div>
+      </div>
+
+      <div class="task-item urgent">
+        <div class="task-item-top">
+          <div class="task-title">Verify Briefing Delivery</div>
+          <div class="task-owner">Menachem</div>
+        </div>
+        <div class="task-desc">Provide feedback after the first automated delivery tomorrow at 6:30 AM PT.</div>
+      </div>
+    </div>
+
+    <!-- Planned -->
+    <div class="task-group">
+      <div class="task-group-header">
+        <div class="task-group-dot planned"></div>
+        <div class="task-group-title">Planned (Barak will do)</div>
+        <div class="task-group-count">4 items</div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-item-top">
+          <div class="task-title">LinkedIn: First Calibration Batch</div>
+        </div>
+        <div class="task-desc">Draft 5-10 comments on real posts to calibrate voice. Blocked by strategy confirmation.</div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-item-top">
+          <div class="task-title">Archive Briefings to Website</div>
+        </div>
+        <div class="task-desc">Push briefing content to repo after each delivery for a searchable archive.</div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-item-top">
+          <div class="task-title">LinkedIn: Build Post Discovery Pipeline</div>
+        </div>
+        <div class="task-desc">Automated search for relevant posts across buyer lanes, 3x per week.</div>
+      </div>
+
+      <div class="task-item">
+        <div class="task-item-top">
+          <div class="task-title">LinkedIn: API Access</div>
+        </div>
+        <div class="task-desc">Phase 2 — requires Michael's LinkedIn credentials for direct integration.</div>
+      </div>
+    </div>
+
+    <!-- Recently Completed -->
+    <div class="task-group">
+      <div class="task-group-header">
+        <div class="task-group-dot done"></div>
+        <div class="task-group-title">Recently Completed</div>
+        <div class="task-group-count">7 items</div>
+      </div>
+
+      <div class="completed-list">
+        <div class="completed-item"><span class="completed-dot"></span> Fix broken cron job for morning briefing <span class="completed-date">Apr 10</span></div>
+        <div class="completed-item"><span class="completed-dot"></span> Save Menachem's timezone & preferences <span class="completed-date">Apr 10</span></div>
+        <div class="completed-item"><span class="completed-dot"></span> Deliver catch-up briefing after Passover <span class="completed-date">Apr 10</span></div>
+        <div class="completed-item"><span class="completed-dot"></span> Build explainer site with Clarity branding <span class="completed-date">Apr 10</span></div>
+        <div class="completed-item"><span class="completed-dot"></span> Add memory deep dive & identity sections <span class="completed-date">Apr 10</span></div>
+        <div class="completed-item"><span class="completed-dot"></span> Apply official Clarity brand guidelines <span class="completed-date">Apr 10</span></div>
+        <div class="completed-item"><span class="completed-dot"></span> Add proactive 6-hour review cycle <span class="completed-date">Apr 10</span></div>
       </div>
     </div>
   </div>
+
+  <div class="divider"></div>
+
+  <!-- ===================== HOW THIS PAGE WORKS ===================== -->
+  <div class="section">
+    <div class="info-card">
+      <h3>How This Page Works</h3>
+      <p>This page updates every time Barak completes work or tasks change. Every 6 hours, Barak proactively reviews all open tasks and projects and pushes updates here.</p>
+      <p>To change anything — add a task, reprioritize, update status — just tell Barak in Telegram.</p>
+      <p><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/memory/tasks-menachem.md" target="_blank" class="green-link">View raw task file on GitHub</a></p>
+    </div>
+  </div>
+
 </div>
+
+<!-- Footer -->
 <div class="footer">
   <img class="footer-logo" src="https://cdn.prod.website-files.com/68ca65f64a04c90f13846d37/68ca65f64a04c90f13846dfe_Clarity%20Logo.svg" alt="Clarity">
   <div class="footer-text">Built by Barak — Powered by Clarity — Last updated <span id="date"></span></div>
 </div>
+
 <script>
   function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('show'); }
   document.addEventListener('click', function(e) {
