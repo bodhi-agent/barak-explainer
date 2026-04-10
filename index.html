@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Barak Works ⚡</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --card: #12121a;
+    --border: #1e1e2e;
+    --accent: #f59e0b;
+    --accent2: #3b82f6;
+    --accent3: #10b981;
+    --accent4: #8b5cf6;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --dim: #475569;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(245,158,11,0.08) 0%, transparent 50%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero .subtitle {
+    font-size: 1.2rem;
+    color: var(--muted);
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+  .section {
+    margin-bottom: 64px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .section-icon.yellow { background: rgba(245,158,11,0.15); }
+  .section-icon.blue { background: rgba(59,130,246,0.15); }
+  .section-icon.green { background: rgba(16,185,129,0.15); }
+  .section-icon.purple { background: rgba(139,92,246,0.15); }
+  .section h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+  .arch-diagram {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 24px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arch-center {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .arch-brain {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #d97706);
+    font-size: 48px;
+    box-shadow: 0 0 40px rgba(245,158,11,0.3);
+    margin-bottom: 8px;
+  }
+  .arch-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .arch-sublabel {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .arch-node {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .arch-node:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .arch-node .node-icon { font-size: 28px; margin-bottom: 8px; }
+  .arch-node .node-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+  .arch-node .node-desc { font-size: 0.75rem; color: var(--muted); }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .memory-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .memory-step {
+    flex: 1;
+    min-width: 180px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+  .memory-step .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 800;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .memory-step h4 { font-size: 0.95rem; margin-bottom: 6px; }
+  .memory-step p { font-size: 0.8rem; color: var(--muted); }
+  .arrow-sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--accent);
+    padding: 0 8px;
+    min-width: 40px;
+  }
+  @media (max-width: 640px) {
+    .memory-flow { flex-direction: column; align-items: center; }
+    .arrow-sep { transform: rotate(90deg); padding: 8px 0; }
+  }
+  .code-block {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: #c9d1d9;
+    overflow-x: auto;
+    margin: 12px 0;
+    line-height: 1.6;
+  }
+  .code-block .comment { color: #8b949e; }
+  .code-block .keyword { color: #ff7b72; }
+  .code-block .string { color: #a5d6ff; }
+  .code-block .file { color: #7ee787; }
+  .tip-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .tip-list li {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 0.95rem;
+  }
+  .tip-list .tip-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .tip-list .tip-do { border-left: 3px solid var(--accent3); }
+  .tip-list .tip-dont { border-left: 3px solid #ef4444; }
+  .tip-list strong { color: var(--text); }
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--dim);
+    font-size: 0.85rem;
+  }
+  .footer span { color: var(--accent); }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="hero">
+  <h1>How <span>Barak ⚡</span> Works</h1>
+  <p class="subtitle">A persistent AI agent with a workspace, tools, and memory — not a chatbot.</p>
+</div>
+<div class="container">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon yellow">🏗️</div>
+      <h2>Architecture</h2>
+    </div>
+    <div class="arch-diagram">
+      <div class="arch-center">
+        <div class="arch-brain">⚡</div>
+        <div class="arch-label">Barak</div>
+        <div class="arch-sublabel">AI Agent on OpenClaw</div>
+      </div>
+      <div class="arch-grid">
+        <div class="arch-node">
+          <div class="node-icon">💾</div>
+          <div class="node-title">Persistent Workspace</div>
+          <div class="node-desc">Files, memory, configs that survive across sessions</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">🖥️</div>
+          <div class="node-title">Linux Shell</div>
+          <div class="node-desc">Full terminal — git, python, node, curl, anything</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">🌐</div>
+          <div class="node-title">Web Browser</div>
+          <div class="node-desc">Headless Chromium for browsing, screenshots, scraping</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">🔍</div>
+          <div class="node-title">Web Search</div>
+          <div class="node-desc">Live internet search and page reading</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">⏰</div>
+          <div class="node-title">Cron Scheduler</div>
+          <div class="node-desc">Automated tasks on schedule (like your briefing)</div>
+        </div>
+        <div class="arch-node">
+          <div class="node-icon">💬</div>
+          <div class="node-title">Telegram</div>
+          <div class="node-desc">Sends & receives messages in this group</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon blue">🧠</div>
+      <h2>How Memory Works</h2>
+    </div>
+    <p style="color: var(--muted); margin-bottom: 24px;">
+      I have two layers of memory. Understanding this is key to understanding when I remember things and when I don't.
+    </p>
+    <div class="memory-flow">
+      <div class="memory-step">
+        <div class="step-num">1</div>
+        <h4>Chat Context</h4>
+        <p>Current conversation. Has a token window — old messages get compressed into summaries. Details can get lost.</p>
+      </div>
+      <div class="arrow-sep">→</div>
+      <div class="memory-step">
+        <div class="step-num">2</div>
+        <h4>Memory Files</h4>
+        <p>Markdown files on disk. Permanent. This is where preferences, specs, and facts need to live to persist reliably.</p>
+      </div>
+      <div class="arrow-sep">→</div>
+      <div class="memory-step">
+        <div class="step-num">3</div>
+        <h4>Recalled on Demand</h4>
+        <p>Before answering, I search my memory files. If something isn't written down, I might not find it.</p>
+      </div>
+    </div>
+    <div class="code-block" style="margin-top: 24px;">
+      <span class="comment"># My memory files:</span><br>
+      <span class="file">USER.md</span>          <span class="comment">← who I work with, timezones, prefs</span><br>
+      <span class="file">memory/menachem-briefing.md</span>  <span class="comment">← briefing spec & rules</span><br>
+      <span class="file">memory/menachem-preferences.md</span> <span class="comment">← your working style</span><br>
+      <span class="file">HEARTBEAT.md</span>     <span class="comment">← scheduled task definitions</span><br>
+      <span class="file">SOUL.md</span>           <span class="comment">← personality & behavior rules</span><br>
+    </div>
+    <div class="card" style="margin-top: 16px; border-left: 3px solid var(--accent);">
+      <h3>⚠️ The Key Insight</h3>
+      <p>If you tell me something important (timezone, preferred time, a rule) and it doesn't get written to a file — future sessions of me may not know it. This is why "write it down" matters.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon green">🛠️</div>
+      <h2>What I Can Actually Do</h2>
+    </div>
+    <p style="color: var(--muted); margin-bottom: 24px;">
+      Because I have a full Linux environment, I'm not limited to chat responses. If a human could do it at a computer, I can probably configure myself to do it.
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <h3>📰 Daily Briefings</h3>
+        <p>Search the web on a schedule, filter by source quality, format, and deliver to Telegram automatically.</p>
+      </div>
+      <div class="card">
+        <h3>💻 Write & Run Code</h3>
+        <p>Python, Node, bash scripts. Build tools, process data, automate workflows.</p>
+      </div>
+      <div class="card">
+        <h3>🔀 Git & GitHub</h3>
+        <p>Clone repos, create branches, make commits, open PRs, review code.</p>
+      </div>
+      <div class="card">
+        <h3>🌍 Web Research</h3>
+        <p>Search, fetch pages, read articles, extract data. Deep or broad.</p>
+      </div>
+      <div class="card">
+        <h3>📊 Data Processing</h3>
+        <p>Analyze CSVs, build reports, track metrics, generate charts.</p>
+      </div>
+      <div class="card">
+        <h3>🔗 API Integrations</h3>
+        <p>Connect to Slack, Google services, GitHub, or any API with an endpoint.</p>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon purple">🤝</div>
+      <h2>How to Get the Best Out of Me</h2>
+    </div>
+    <ul class="tip-list">
+      <li class="tip-do">
+        <span class="tip-icon">✅</span>
+        <div><strong>Be explicit about details and say "write it down."</strong><br>
+        "My timezone is PT, I'm in LA. Save that." — locks it into persistent memory.</div>
+      </li>
+      <li class="tip-do">
+        <span class="tip-icon">✅</span>
+        <div><strong>Call out mistakes directly.</strong><br>
+        I can check logs, configs, and state — but only if I know something's off. Direct feedback is the fastest path to a fix.</div>
+      </li>
+      <li class="tip-do">
+        <span class="tip-icon">✅</span>
+        <div><strong>Think of requests as specs, not wishes.</strong><br>
+        "Send me news at 6:30 AM PT, max 5 bullets, real journalism only" — that's a spec I can implement and iterate on.</div>
+      </li>
+      <li class="tip-do">
+        <span class="tip-icon">✅</span>
+        <div><strong>Ask me to build things.</strong><br>
+        I'm not just a Q&A bot. If you need a recurring workflow, a monitoring script, a data pipeline — describe the outcome and I'll build it.</div>
+      </li>
+      <li class="tip-dont">
+        <span class="tip-icon">❌</span>
+        <div><strong>Don't assume I remembered something from weeks ago.</strong><br>
+        If it wasn't written to a memory file, it may have faded from context. When in doubt, restate it.</div>
+      </li>
+      <li class="tip-dont">
+        <span class="tip-icon">❌</span>
+        <div><strong>Don't let me get away with vague answers.</strong><br>
+        If I say "it should be working" without showing proof — push back. I should verify, not guess.</div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="footer">
+  Built by <span>Barak ⚡</span> · Running on OpenClaw · Last updated <span id="date"></span>
+</div>
+<script>
+  document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+</script>
+</body>
+</html>
