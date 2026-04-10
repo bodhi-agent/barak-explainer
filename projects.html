@@ -152,31 +152,6 @@
   .milestone-text { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
   .milestone-text span { font-weight: 400; color: var(--secondary); }
 
-  /* Briefing inline */
-  .briefing-section { padding: 0 28px 24px; }
-  .briefing-section-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary); margin-bottom: 6px; }
-  .briefing-date { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 18px; letter-spacing: -0.01em; }
-  .briefing-category { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--secondary); margin-bottom: 10px; margin-top: 18px; }
-  .briefing-category:first-of-type { margin-top: 0; }
-  .briefing-story { background: var(--white); border: 1.5px solid var(--border); border-left: 4px solid var(--green); border-radius: 8px; padding: 16px 18px; margin-bottom: 10px; }
-  .briefing-story-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.4; }
-  .briefing-story-text { font-size: 0.82rem; color: var(--secondary); line-height: 1.55; }
-  .briefing-source { display: inline-flex; align-items: center; font-size: 0.7rem; font-weight: 600; padding: 3px 10px; border-radius: 12px; background: var(--accent-muted); color: var(--navy); border: 1px solid #c6f7d8; text-decoration: none; margin-top: 8px; margin-right: 4px; transition: border-color 0.2s; }
-  .briefing-source:hover { border-color: var(--green); text-decoration: none; }
-  .briefing-signal { background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 14px 18px; margin-top: 16px; }
-  .briefing-signal-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary); margin-bottom: 4px; }
-  .briefing-signal-text { font-size: 0.82rem; color: var(--secondary); line-height: 1.5; }
-
-  /* Briefing archive */
-  .briefing-archive { padding: 0 28px 20px; }
-  .briefing-archive-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary); margin-bottom: 10px; }
-  .briefing-archive-list { display: flex; flex-direction: column; gap: 6px; }
-  .briefing-archive-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; }
-  .briefing-archive-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-  .briefing-archive-link { color: var(--navy); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--green); }
-  .briefing-archive-link:hover { text-decoration: none; }
-  .briefing-archive-tag { font-size: 0.68rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; background: var(--accent-muted); color: var(--navy); border: 1px solid #c6f7d8; }
-
 </style>
 </head>
 <body>
@@ -189,6 +164,7 @@
     <a href="architecture.html" class="nav-link">Architecture</a>
     <a href="projects.html" class="nav-link active">Projects & Tasks</a>
     <a href="capabilities.html" class="nav-link">Capabilities</a>
+    <a href="skills.html" class="nav-link">Skills</a>
     <a href="case-study.html" class="nav-link">Case Study</a>
   </div>
   <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
@@ -197,6 +173,7 @@
     <a href="architecture.html" class="nav-link">Architecture</a>
     <a href="projects.html" class="nav-link active">Projects & Tasks</a>
     <a href="capabilities.html" class="nav-link">Capabilities</a>
+    <a href="skills.html" class="nav-link">Skills</a>
     <a href="case-study.html" class="nav-link">Case Study</a>
   </div>
 </div>
@@ -249,68 +226,6 @@
       <div class="milestone">
         <div class="milestone-arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#0a1628" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="milestone-text">Next: First automated delivery <span>tomorrow 6:30 AM PT</span></div>
-      </div>
-
-      <!-- Latest Briefing (inline) -->
-      <div class="briefing-section" style="border-top: 1.5px solid var(--border); padding-top: 24px; margin-top: 4px;">
-        <div class="briefing-section-label">Latest Briefing</div>
-        <div class="briefing-date">April 10, 2026</div>
-
-        <div class="briefing-category">Synthetic Identity / Fraud Data</div>
-
-        <div class="briefing-story">
-          <div class="briefing-story-title">LexisNexis: Synthetic Identity Fraud Soared 8x in 2025</div>
-          <div class="briefing-story-text">Major new data: synthetic identity fraud now accounts for 11% of all reported fraud globally, an eight-fold increase over 2024. Based on analysis of 116 billion online transactions. Global fraud attacks up 8% overall, driven by synthetic IDs and agentic bots.</div>
-          <div>
-            <a href="https://www.insurancejournal.com/news/national/2026/04/09/865142.htm" target="_blank" class="briefing-source">Insurance Journal</a>
-            <a href="https://www.biometricupdate.com/202604/synthetic-identity-fraud-soared-8x-in-2025-lexisnexis" target="_blank" class="briefing-source">Biometric Update</a>
-          </div>
-        </div>
-
-        <div class="briefing-category">DPRK / Hiring Fraud</div>
-
-        <div class="briefing-story">
-          <div class="briefing-story-title">NDTV: How A Simple Tactic Exposed a Suspected North Korean Agent</div>
-          <div class="briefing-story-text">Continued coverage of the viral interview clip. Notes that thousands of North Koreans have secured remote jobs at Western companies using AI, deepfake technology, and stolen identities to pass background checks.</div>
-          <div>
-            <a href="https://www.ndtv.com/world-news/video-how-a-simple-tactic-exposed-a-suspected-north-korean-agent-mid-job-interview-11332254" target="_blank" class="briefing-source">NDTV</a>
-          </div>
-        </div>
-
-        <div class="briefing-category">Hiring Fraud</div>
-
-        <div class="briefing-story">
-          <div class="briefing-story-title">DOJ Warns Prosecution Tools Haven't Kept Up With AI-Powered Synthetic Identity Fraud</div>
-          <div class="briefing-story-text">Department of Justice flags that legal frameworks and prosecution tools are falling behind the pace of AI-enabled identity fraud. Synthetic identity fraud described as reaching "crisis levels."</div>
-          <div>
-            <a href="https://www.altitudesmagazine.com/synthetic-identity-fraud-hits-crisis-levels-2026-doj-warns/" target="_blank" class="briefing-source">Altitudes Magazine</a>
-          </div>
-        </div>
-
-        <div class="briefing-signal">
-          <div class="briefing-signal-label">Signal</div>
-          <div class="briefing-signal-text">The LexisNexis 8x stat is the headline — hard data from 116B transactions. DOJ piece is significant for the regulatory angle. Strong day.</div>
-        </div>
-      </div>
-
-      <!-- Briefing Archive -->
-      <div class="briefing-archive">
-        <div class="briefing-archive-label">Briefing Archive</div>
-        <div class="briefing-archive-list">
-          <div class="briefing-archive-item">
-            <span class="briefing-archive-dot"></span>
-            <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/briefings/2026-04-10.md" target="_blank" class="briefing-archive-link">April 10, 2026</a>
-            <span class="briefing-archive-tag">latest</span>
-          </div>
-          <div class="briefing-archive-item">
-            <span class="briefing-archive-dot"></span>
-            <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/briefings/2026-04-09.md" target="_blank" class="briefing-archive-link">April 9, 2026</a>
-          </div>
-          <div class="briefing-archive-item">
-            <span class="briefing-archive-dot"></span>
-            <a href="https://github.com/bodhi-agent/barak-explainer/blob/main/briefings/2026-04-08.md" target="_blank" class="briefing-archive-link">April 8, 2026</a>
-          </div>
-        </div>
       </div>
 
       <!-- Spec links -->
