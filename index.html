@@ -140,7 +140,50 @@
     </div>
     <div class="card" style="margin-top: 14px; border-left: 3px solid var(--accent);"><h3>⚠️ The Key Insight</h3><p>If you tell Barak something important and it doesn't get written to a file — future sessions may not know it. That's why "write it down" matters.</p></div>
   </div>
-  <div class="section">
+
+  <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, var(--card) 0%, rgba(17,31,76,0.5) 100%); border: 1px solid rgba(97,243,147,0.15);">
+    <h3 style="font-size: 1.1rem; margin-bottom: 16px;">🔮 Why File-Based Memory Is Secretly Genius</h3>
+    <p style="margin-bottom: 14px;">Most AI assistants have one type of memory: <strong>the conversation window</strong>. Once a conversation gets long enough, the oldest messages fall off the edge. Details are gone forever. It's like having a brilliant colleague with amnesia.</p>
+    <p style="margin-bottom: 14px;">Barak's memory works differently. The file system <em>is</em> the memory — and it has no upper limit. Every fact, preference, spec, and lesson learned gets written to markdown files on disk. Those files don't expire, don't get compressed, and don't fall off any edge. A year from now, <code style="color: #61F393;">USER.md</code> will still say Menachem is in LA on Pacific Time.</p>
+    <p style="margin-bottom: 14px;"><strong>The insight:</strong> this turns memory into a search problem, not a capacity problem. Before answering a question, Barak searches his files semantically — the same way you'd search your notes. And search is essentially a solved problem that keeps getting more efficient. As the OpenClaw platform develops, the tools for searching, indexing, and recalling from this file system are getting sharper every week. The vision is that the file system becomes virtually indistinguishable from a limitless context window.</p>
+    <p style="margin-bottom: 0; color: #61F393; font-weight: 600;">In theory, this means infinite memory with perfect recall. In practice, we're not there yet.</p>
+  </div>
+
+  <div class="card" style="margin-top: 14px; border-left: 3px solid #dc3545;">
+    <h3 style="margin-bottom: 14px;">⚠️ Where It Breaks Down Today — Honestly</h3>
+    <div style="display: grid; gap: 12px;">
+      <div>
+        <strong style="color: #dc3545;">The write problem.</strong>
+        <p style="margin-top: 4px;">Memory is only as good as what gets written down. If you tell Barak your timezone in passing and he doesn't save it to a file, future sessions won't know. Today, this requires discipline — Barak should always write important facts immediately, but sometimes he doesn't. Saying <em>"save that"</em> helps force it.</p>
+      </div>
+      <div>
+        <strong style="color: #dc3545;">The staleness problem.</strong>
+        <p style="margin-top: 4px;">Files can become outdated. If a preference changes but the old file isn't updated, Barak will confidently act on stale information. There's no automatic "expiry" on a markdown file — it looks just as valid whether it was written yesterday or six months ago.</p>
+      </div>
+      <div>
+        <strong style="color: #dc3545;">The search-not-read problem.</strong>
+        <p style="margin-top: 4px;">Barak searches memory files before responding, but search depends on asking the right question. If a fact is stored under a filename or heading that doesn't match what he's looking for, he might miss it entirely. It's like having a filing cabinet but forgetting which drawer something's in.</p>
+      </div>
+      <div>
+        <strong style="color: #dc3545;">The verify-before-asserting problem.</strong>
+        <p style="margin-top: 4px;">The biggest failure mode isn't missing information — it's Barak <em>thinking</em> he remembers something when he's actually confabulating from compressed conversation summaries. The fix is cultural: always check the file before asserting the fact. We're working on making this more automatic.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 14px; border-left: 3px solid #0C6BD8;">
+    <h3>🔧 What's Improving</h3>
+    <p style="margin-bottom: 10px;">OpenClaw is under active development. The memory architecture is getting better fast:</p>
+    <ul style="color: var(--muted); padding-left: 20px; display: grid; gap: 6px;">
+      <li><strong style="color: var(--text);">Better automatic writes</strong> — detecting when important facts are mentioned and persisting them without being told</li>
+      <li><strong style="color: var(--text);">Smarter search</strong> — semantic recall that works more like "what do I know about Menachem's schedule?" and less like keyword matching</li>
+      <li><strong style="color: var(--text);">Lossless context compression</strong> — conversation summaries that preserve critical details instead of losing them</li>
+      <li><strong style="color: var(--text);">File system as context</strong> — the goal is to treat the entire workspace as an extension of the context window, retrievable on demand</li>
+    </ul>
+    <p style="margin-top: 12px; color: var(--accent); font-weight: 500;">The architecture is right. The execution is catching up.</p>
+  </div>
+
+    <div class="section">
     <div class="section-header"><div class="section-icon">🛠️</div><h2>What Barak Can Actually Do</h2></div>
     <p style="color: var(--muted); margin-bottom: 20px;">Full Linux environment means Barak isn't limited to chat responses. If a human could do it at a computer, Barak can probably configure himself to do it.</p>
     <div class="card-grid">
