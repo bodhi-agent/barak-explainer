@@ -127,6 +127,29 @@
   .completed-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 0.85rem; color: var(--muted); border-bottom: 1px solid rgba(30,30,46,0.5); }
   .completed-item:last-child { border-bottom: none; }
   .completed-check { color: #61F393; font-size: 16px; flex-shrink: 0; }
+
+  .identity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px; }
+  .identity-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.3s, transform 0.3s; }
+  .identity-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .identity-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .identity-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--accent-dim); flex-shrink: 0; }
+  .identity-card-name { font-size: 0.95rem; font-weight: 700; }
+  .identity-card-name a { color: var(--accent); text-decoration: none; }
+  .identity-card-name a:hover { text-decoration: underline; }
+  .identity-card-role { font-size: 0.75rem; color: var(--muted); }
+  .identity-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .identity-card .field-list { list-style: none; padding: 0; margin-top: 10px; }
+  .identity-card .field-list li { font-size: 0.82rem; color: var(--muted); padding: 4px 0; border-bottom: 1px solid rgba(30,30,46,0.4); display: flex; gap: 8px; }
+  .identity-card .field-list li:last-child { border-bottom: none; }
+  .identity-card .field-label { color: var(--text); font-weight: 600; white-space: nowrap; }
+  .drift-visual { background: linear-gradient(135deg, var(--card) 0%, rgba(17,31,76,0.5) 100%); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-top: 20px; }
+  .drift-bar-container { margin: 16px 0; }
+  .drift-bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 6px; }
+  .drift-bar { height: 8px; border-radius: 4px; background: var(--border); overflow: hidden; }
+  .drift-bar-fill { height: 100%; border-radius: 4px; }
+  .drift-fill-strong { background: linear-gradient(90deg, #61F393, #3dd97a); width: 95%; }
+  .drift-fill-medium { background: linear-gradient(90deg, #f59e0b, #d97706); width: 60%; }
+  .drift-fill-weak { background: linear-gradient(90deg, #dc3545, #b91c1c); width: 25%; }
 </style>
 </head>
 <body>
@@ -220,7 +243,115 @@
     <p style="margin-top: 12px; color: var(--accent); font-weight: 500;">The architecture is right. The execution is catching up.</p>
   </div>
 
-    <div class="section">
+  
+  <div class="section">
+    <div class="section-header"><div class="section-icon">🪪</div><h2>Identity Files — Who Barak Is</h2></div>
+    <p class="dashboard-intro">Four files define Barak's identity. They're loaded into his system prompt at the start of every session — before he reads a single message. Think of them as his <strong>DNA</strong>: they shape how he thinks, talks, and acts. And you can change them just by telling him how you want him to behave.</p>
+
+    <div class="identity-grid">
+      <div class="identity-card">
+        <div class="identity-card-header">
+          <div class="identity-card-icon">⚡</div>
+          <div>
+            <div class="identity-card-name"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/identity/SOUL.md" target="_blank">SOUL.md</a></div>
+            <div class="identity-card-role">Personality & behavior rules</div>
+          </div>
+        </div>
+        <p>The deepest layer. Defines Barak's personality, communication style, and what he refuses to do. This is where "sharp and direct, no filler, no sugarcoating" comes from.</p>
+        <ul class="field-list">
+          <li><span class="field-label">Controls:</span> Tone, personality, values, boundaries</li>
+          <li><span class="field-label">Example:</span> "Don't be sycophantic, don't speculate without flagging it"</li>
+        </ul>
+      </div>
+
+      <div class="identity-card">
+        <div class="identity-card-header">
+          <div class="identity-card-icon">🪪</div>
+          <div>
+            <div class="identity-card-name"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/identity/IDENTITY.md" target="_blank">IDENTITY.md</a></div>
+            <div class="identity-card-role">Name, model, basic facts</div>
+          </div>
+        </div>
+        <p>The basics: his name is Barak, his emoji is ⚡, he runs on Claude Opus. Simple facts that stay constant. Think of it as a birth certificate.</p>
+        <ul class="field-list">
+          <li><span class="field-label">Controls:</span> Name, username, model, creation date</li>
+          <li><span class="field-label">Rarely changes:</span> Only if fundamentals shift</li>
+        </ul>
+      </div>
+
+      <div class="identity-card">
+        <div class="identity-card-header">
+          <div class="identity-card-icon">👥</div>
+          <div>
+            <div class="identity-card-name"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/identity/USER.md" target="_blank">USER.md</a></div>
+            <div class="identity-card-role">Who Barak works for</div>
+          </div>
+        </div>
+        <p>Everything Barak knows about the people he serves — names, roles, timezones, preferences. This is where "Menachem is in LA, prefers signal over volume" lives.</p>
+        <ul class="field-list">
+          <li><span class="field-label">Controls:</span> Who you are, your timezone, your working style</li>
+          <li><span class="field-label">Updated by:</span> Telling Barak about yourself</li>
+        </ul>
+      </div>
+
+      <div class="identity-card">
+        <div class="identity-card-header">
+          <div class="identity-card-icon">⚙️</div>
+          <div>
+            <div class="identity-card-name"><a href="https://github.com/bodhi-agent/barak-explainer/blob/main/identity/AGENTS.md" target="_blank">AGENTS.md</a></div>
+            <div class="identity-card-role">Operational configuration</div>
+          </div>
+        </div>
+        <p>The rulebook: what repos Barak has access to, git workflow rules, startup procedures, what he's responsible for. The operational guardrails.</p>
+        <ul class="field-list">
+          <li><span class="field-label">Controls:</span> Permissions, workflows, responsibilities</li>
+          <li><span class="field-label">Set by:</span> Michael (admin-level config)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--accent); margin-bottom: 20px;">
+      <h3>💬 How to Edit These: Just Talk</h3>
+      <p style="margin-bottom: 12px;">You don't need to learn a config language or edit files directly. Just tell Barak what you want:</p>
+      <div class="code-block">
+        <span class="comment"># These are all valid ways to shape Barak's identity:</span><br><br>
+        "Be more concise in your briefings. I want bullet points only."<br>
+        "When I ask about competitors, always check LinkedIn first."<br>
+        "Don't use emojis in serious reports."<br>
+        "I prefer you flag uncertainties explicitly rather than hedging."<br>
+        "My timezone changed — I'm in NYC now, Eastern Time."<br><br>
+        <span class="comment"># The richer the instruction, the better. You can describe:</span><br>
+        <span class="comment"># → Communication style (formal? casual? terse?)</span><br>
+        <span class="comment"># → Decision-making approach (ask first? act then report?)</span><br>
+        <span class="comment"># → Topic expertise to emphasize or avoid</span><br>
+        <span class="comment"># → How to handle ambiguity (guess? ask? flag?)</span><br>
+        <span class="comment"># → Specific phrases to use or avoid</span><br><br>
+        <span class="file">→ Barak updates the relevant file, and it takes effect next session.</span>
+      </div>
+    </div>
+
+    <div class="drift-visual">
+      <h3 style="margin-bottom: 8px;">⚠️ The Drift Problem — Why This Isn't Magic</h3>
+      <p style="color: var(--muted); margin-bottom: 16px;">Identity files are loaded at session start. But as a conversation gets longer, the <strong>context window fills up</strong> with new messages — and the identity instructions get proportionally smaller. Barak can gradually "drift" from his configured personality, especially in long sessions.</p>
+      <div class="drift-bar-container">
+        <div class="drift-bar-label"><span>Session start</span><span>Identity adherence: ~95%</span></div>
+        <div class="drift-bar"><div class="drift-bar-fill drift-fill-strong"></div></div>
+      </div>
+      <div class="drift-bar-container">
+        <div class="drift-bar-label"><span>Mid-session (~50k tokens)</span><span>Identity adherence: ~60%</span></div>
+        <div class="drift-bar"><div class="drift-bar-fill drift-fill-medium"></div></div>
+      </div>
+      <div class="drift-bar-container">
+        <div class="drift-bar-label"><span>Long session (~150k tokens)</span><span>Identity adherence: ~25%</span></div>
+        <div class="drift-bar"><div class="drift-bar-fill drift-fill-weak"></div></div>
+      </div>
+      <p style="color: var(--muted); margin-top: 16px; font-size: 0.85rem;">This is why Barak sometimes becomes more generic or "assistant-like" in long conversations — the SOUL.md personality instructions are getting drowned out by the volume of recent messages. <strong>Compaction helps</strong> (compressing old messages to free space), and <strong>fresh sessions help</strong> (identity files are front-and-center again). But it's an inherent tradeoff of the architecture today.</p>
+      <p style="color: var(--accent); margin-top: 12px; font-weight: 500; font-size: 0.85rem;">If Barak starts feeling "off" — less sharp, more generic — it's probably drift. A fresh session resets it. Or just tell him: "You're drifting, re-read your SOUL."</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section">
     <div class="section-header"><div class="section-icon">🛠️</div><h2>What Barak Can Actually Do</h2></div>
     <p style="color: var(--muted); margin-bottom: 20px;">Full Linux environment means Barak isn't limited to chat responses. If a human could do it at a computer, Barak can probably configure himself to do it.</p>
     <div class="card-grid">
